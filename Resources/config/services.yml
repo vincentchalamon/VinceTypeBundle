@@ -1,0 +1,34 @@
+services:
+    # Twig
+    twig.extension.vince.form:
+        class: Vince\Bundle\TypeBundle\Twig\Extension\FormExtension
+        tags:
+            - { name: twig.extension }
+
+    # Form extensions
+    form.type_extension.locale:
+        class: Vince\Bundle\TypeBundle\Form\Extension\LocaleTypeExtension
+        calls:
+            - [setContainer, [@service_container]]
+        tags:
+            - { name: form.type_extension, alias: form }
+    form.type_extension.help:
+        class: Vince\Bundle\TypeBundle\Form\Extension\HelpTypeExtension
+        tags:
+            - { name: form.type_extension, alias: form }
+
+    # Form types
+    form.type.datepicker:
+        class: Vince\Bundle\TypeBundle\Form\Type\DatepickerType
+        calls:
+            - [setTranslator, [@translator]]
+        tags:
+            - { name: form.type, alias: datepicker }
+    form.type.masked:
+        class: Vince\Bundle\TypeBundle\Form\Type\MaskedType
+        tags:
+            - { name: form.type, alias: masked }
+    form.type.redactor:
+        class: Vince\Bundle\TypeBundle\Form\Type\RedactorType
+        tags:
+            - { name: form.type, alias: redactor }
