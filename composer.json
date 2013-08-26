@@ -1,0 +1,19 @@
+{
+    "name": "vince/type-bundle",
+    "type": "symfony-bundle",
+    "description": "Form types for Symfony 2.3",
+    "keywords": ["Form"],
+    "homepage": "https://github.com/vincentchalamon/VinceTypeBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vincent CHALAMON",
+            "email": "vincentchalamon@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Vince\\Bundle\\TypeBundle": "" }
+    },
+    "target-dir": "Vince/Bundle/TypeBundle",
+    "version": "1.0.0-beta"
+}
