@@ -1,2 +1,13 @@
 datepicker:
     format: dd/mm/yy
+
+redactor:
+    messages:
+        fileUploadError: Aucun fichier n'a été envoyé.
+
+token:
+    text:
+        hint: Saisissez une recherche
+        noResults: Aucun résultat
+        searching: Recherche en cours
+        delete: ×

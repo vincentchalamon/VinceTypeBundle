@@ -1,0 +1,9 @@
+redactor-upload:
+    pattern:  /redactor/upload
+    defaults: { _controller: VinceTypeBundle:Redactor:upload }
+    requirements: { _method: POST }
+
+token-search:
+    pattern:  /token/search
+    defaults: { _controller: VinceTypeBundle:Token:search }
+    requirements: { _method: POST }

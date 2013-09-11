@@ -43,19 +43,39 @@
 
 {% block redactor_stylesheet %}
 {% spaceless %}
-    <link rel="stylesheet" type="text/css" media="screen" href="http://imperavi.com/js/redactor/redactor.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/vincetype/redactor/redactor.css') }}" />
 {% endspaceless %}
 {% endblock redactor_stylesheet %}
 
 {% block redactor_javascript %}
 {% spaceless %}
-    <script type="text/javascript" src="http://imperavi.com/js/redactor/redactor.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/vincetype/redactor/redactor.js') }}"></script>
     {% if app.request.locale != 'en' %}
-        <script type="text/javascript" src="http://imperavi.com/files/redactor/langs/{{ app.request.locale }}.js"></script>
+        <script type="text/javascript" src="{{ asset('bundles/vincetype/redactor/langs/' ~ app.request.locale ~ '.js') }}"></script>
     {% endif %}
     <script type="text/javascript">
         $(function () {
-            $('#{{ id }}').redactor({{ options|raw }});
+            $('#{{ id }}').redactor($.extend({
+                imageUploadErrorCallback: function (datas) {
+                    $('.redactor_error', $('#{{ id }}').closest('.redactor_box')).trigger('close');
+                    $('<div>').addClass('redactor_error').text(datas.error).insertAfter($('#{{ id }}')).on('close', function (event) {
+                        $(this).slideUp('fast', function () {
+                            $(this).remove();
+                        });
+                    }).slideDown('fast').delay(5000).trigger('close');
+                },
+                fileUploadErrorCallback: function (datas) {
+                    $('.redactor_error', $('#{{ id }}').closest('.redactor_box')).trigger('close');
+                    $('<div>').addClass('redactor_error').text(datas.error).insertAfter($('#{{ id }}')).on('close', function (event) {
+                        $(this).slideUp('fast', function () {
+                            $(this).remove();
+                        });
+                    }).slideDown('fast').delay(5000).trigger('close');
+                },
+                imageUpload: '{{ path('redactor-upload') }}',
+                fileUpload: '{{ path('redactor-upload') }}',
+                lang: '{{ app.request.locale }}'
+            }, {{ options|raw }}));
         });
     </script>
 {% endspaceless %}
@@ -66,6 +86,7 @@
 
 {% block masked_javascript %}
 {% spaceless %}
+    <script type="text/javascript" src="{{ asset('bundles/vincetype/masked/jquery.maskedinput.min.js') }}"></script>
     <script type="text/javascript">
         $(function () {
             $('#{{ id }}').mask({{ mask }}, {{ options|raw }});
@@ -73,3 +94,91 @@
     </script>
 {% endspaceless %}
 {% endblock masked_javascript %}
+
+
+{# Token #}
+
+{% block token_stylesheet %}
+    {% spaceless %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/vincetype/token/token-input-facebook.css') }}" />
+    {% endspaceless %}
+{% endblock token_stylesheet %}
+
+{% block token_javascript %}
+{% spaceless %}
+    <script type="text/javascript" src="{{ asset('bundles/vincetype/token/jquery.tokeninput.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#{{ id }}').tokenInput('{{ path('token-search') }}', $.extend({
+                method: 'POST',
+                queryParam: 'query',
+                queryParams: {
+                    entity: '{{ entity }}',
+                    method: '{{ searchMethod }}'
+                },
+                hintText: '{{ 'token.text.hint'|trans({}, 'Vince') }}',
+                noResultsText: '{{ 'token.text.noResults'|trans({}, 'Vince') }}',
+                searchingText: '{{ 'token.text.searching'|trans({}, 'Vince') }}',
+                deleteText: '{{ 'token.text.delete'|trans({}, 'Vince') }}',
+                theme: 'facebook'
+            }, {{ options|raw }}));
+        });
+    </script>
+{% endspaceless %}
+{% endblock token_javascript %}
+
+
+{# Datepicker #}
+
+{% block datepicker_stylesheet %}
+    {% spaceless %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/vincetype/datepicker/bootstrap.datepicker.min.css') }}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/vincetype/datepicker/datepicker.css') }}" />
+    {% endspaceless %}
+{% endblock datepicker_stylesheet %}
+
+{% block datepicker_javascript %}
+{% spaceless %}
+    <script type="text/javascript" src="{{ asset('bundles/vincetype/datepicker/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/vincetype/datepicker/bootstrap-datepicker.js') }}"></script>
+    {% if app.request.locale != 'en' %}
+        <script type="text/javascript" src="{{ asset('bundles/vincetype/datepicker/langs/bootstrap-datepicker.' ~ app.request.locale ~ '.js') }}"></script>
+    {% endif %}
+    <script type="text/javascript">
+        $(function () {
+            $('#{{ id }}').datepicker({{ options|raw }});
+        });
+    </script>
+{% endspaceless %}
+{% endblock datepicker_javascript %}
+
+{% block datepicker_widget %}
+{% spaceless %}
+    {% set type = 'text' %}
+    {{ block('form_widget_simple') }}
+{% endspaceless %}
+{% endblock datepicker_widget %}
+
+
+{# Dropzone #}
+
+{% block dropzone_stylesheet %}
+    {% spaceless %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('bundles/vincetype/dropzone/dropzone.css') }}" />
+    {% endspaceless %}
+{% endblock dropzone_stylesheet %}
+
+{% block dropzone_javascript %}
+{% spaceless %}
+    <script type="text/javascript" src="{{ asset('bundles/vincetype/dropzone/dropzone.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/vincetype/datepicker/bootstrap-datepicker.js') }}"></script>
+    {% if app.request.locale != 'en' %}
+        <script type="text/javascript" src="{{ asset('bundles/vincetype/datepicker/langs/bootstrap-datepicker.' ~ app.request.locale ~ '.js') }}"></script>
+    {% endif %}
+    <script type="text/javascript">
+        $(function () {
+            $('#{{ id }}').datepicker({{ options|raw }});
+        });
+    </script>
+{% endspaceless %}
+{% endblock dropzone_javascript %}

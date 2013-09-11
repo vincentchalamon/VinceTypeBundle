@@ -1,3 +1,71 @@
+parameters:
+    kernel.web_dir: %kernel.root_dir%/../web
+    kernel.uploads_path: /uploads
+    vince.type.redactor:
+        toolbar: []
+        buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'image', 'video', 'file', 'table', 'link', '|', '|', 'alignment', '|', 'horizontalrule']
+        buttonsAdd: []
+        formattingTags: ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4']
+        buttonSource: true
+        iframe: false
+        fullpage: false
+        css: false
+        focus: false
+        shortcuts: true
+        autoresize: true
+        cleanup: true
+        toolbarFixed: false
+        toolbarFixedTopOffset: 0
+        toolbarFixedBox: false
+        toolbarFixedTarget: document
+        paragraphy: true
+        convertLinks: true
+        convertDivs: true
+        autosave: false
+        autosaveInterval: 60
+        modalOverlay: true
+        tabindex: false
+        minHeight: 200
+        observeImages: true
+        air: false
+        airButtons: ['formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent']
+        wym: false
+        mobile: true
+        linkProtocol: http://
+        placeholder: false
+        linebreaks: false
+        allowedTags: false
+        deniedTags: ['html', 'head', 'link', 'body', 'meta', 'script', 'style', 'applet']
+        boldTag: strong
+        italicTag: em
+        linkEmail: false
+        linkAnchor: false
+        formattingPre: false
+        phpTags: false
+        visual: true
+        s3: false
+        tabFocus: true
+        removeEmptyTags: true
+        convertImageLinks: false
+        convertVideoLinks: false
+        pastePlainText: false
+        linkNoFollow: false
+        clipboardUpload: true
+        dragUpload: true
+        tidyHtml: false
+        imageFloatMargin: 10px
+        tabSpaces: false
+        observeLinks: false
+    vince.type.token:
+        searchMethod: search
+        searchDelay: 300
+        minChars: 1
+        animateDropdown: true
+        resultsLimit: null
+        tokenLimit: null
+        tokenDelimiter: ,
+        preventDuplicates: true
+
 services:
     # Twig
     twig.extension.vince.form:
@@ -20,5 +88,25 @@ services:
     # Form types
     form.type.redactor:
         class: Vince\Bundle\TypeBundle\Form\Type\RedactorType
+        calls:
+            - [setConfiguration, [%vince.type.redactor%]]
         tags:
             - { name: form.type, alias: redactor }
+    form.type.token:
+        class: Vince\Bundle\TypeBundle\Form\Type\TokenType
+        calls:
+            - [setConfiguration, [%vince.type.token%]]
+        tags:
+            - { name: form.type, alias: token }
+    form.type.masked:
+        class: Vince\Bundle\TypeBundle\Form\Type\MaskedType
+        tags:
+            - { name: form.type, alias: masked }
+    form.type.datepicker:
+        class: Vince\Bundle\TypeBundle\Form\Type\DatepickerType
+        tags:
+            - { name: form.type, alias: datepicker }
+    form.type.dropzone:
+        class: Vince\Bundle\TypeBundle\Form\Type\DropzoneType
+        tags:
+            - { name: form.type, alias: dropzone }
