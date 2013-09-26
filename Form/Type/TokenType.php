@@ -10,10 +10,13 @@
  */
 namespace Vince\Bundle\TypeBundle\Form\Type;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Vince\Bundle\TypeBundle\Form\Transformer\TokenTransformer;
 
 /**
  * Description of TokenType.php
@@ -23,13 +26,21 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class TokenType extends AbstractType
 {
 
+    /** @var $em EntityManager */
+    protected $em;
+
     protected $config = array();
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->addViewTransformer(new TokenTransformer($this->em, $options['entity'], $options['tokenDelimiter'], $options['identifier'], $options['identifierMethod'], $options['renderMethod']));
+    }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['entity'] = $options['entity'];
+        $view->vars['entity']       = $options['entity'];
         $view->vars['searchMethod'] = $options['searchMethod'];
-        unset($options['entity'], $options['searchMethod']);
+        unset($options['entity'], $options['searchMethod'], $options['renderMethod'], $options['identifier'], $options['identifierMethod']);
         $view->vars['options'] = json_encode(array_intersect_key($options, $this->config));
     }
 
@@ -38,10 +49,19 @@ class TokenType extends AbstractType
         $this->config = $config;
     }
 
+    public function setEntityManager(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setRequired(array('entity'))
-                 ->setDefaults($this->config);
+                 ->setDefaults(array_merge(array(
+                        'renderMethod'     => '__toString',
+                        'identifierMethod' => 'getId',
+                        'identifier'       => 'id'
+                    ), $this->config));
     }
 
     /**
