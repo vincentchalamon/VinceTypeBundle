@@ -89,6 +89,7 @@ services:
     form.type.redactor:
         class: Vince\Bundle\TypeBundle\Form\Type\RedactorType
         calls:
+            - [setWebDir, [%kernel.web_dir%]]
             - [setConfiguration, [%vince.type.redactor%]]
         tags:
             - { name: form.type, alias: redactor }

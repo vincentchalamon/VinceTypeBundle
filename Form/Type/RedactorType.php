@@ -10,6 +10,8 @@
  */
 namespace Vince\Bundle\TypeBundle\Form\Type;
 
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -23,10 +25,32 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class RedactorType extends AbstractType
 {
 
-    protected $config = array();
+    protected $config = array(), $webDir;
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
+        $paths = $options['paths'];
+        unset($options['paths']);
+        foreach ($paths as $path) {
+            if (!substr($path, 0, 1) != '/') {
+                $path = sprintf('/%s', $path);
+            }
+            if (realpath($this->webDir.$path)) {
+                $finder = Finder::create()->files()->name('/\.(?:gif|png|jpg|jpeg)$/i');
+                foreach ($finder->in(realpath($this->webDir.$path)) as $img) {
+                    /** @var $img SplFileInfo */
+                    $paths[] = array(
+                        //'thumb'  => substr($img->getRealPath(), strlen(realpath($this->webDir))),
+                        'image'  => substr($img->getRealPath(), strlen(realpath($this->webDir))),
+                        'title'  => $img->getFilename(),
+                        'folder' => $path
+                    );
+                }
+            }
+        }
+        if (count($paths)) {
+            $options['imageGetJson'] = $paths;
+        }
         $view->vars['options'] = json_encode(array_intersect_key($options, $this->config));
     }
 
@@ -35,9 +59,14 @@ class RedactorType extends AbstractType
         $this->config = $config;
     }
 
+    public function setWebDir($webDir)
+    {
+        $this->webDir = $webDir;
+    }
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults($this->config);
+        $resolver->setDefaults(array_merge($this->config, array('paths' => array('/uploads'))));
     }
 
     /**
