@@ -23,20 +23,23 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class MaskedType extends AbstractType
 {
 
+    protected $config = array();
+
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['mask'] = $options['mask'];
         unset($options['mask']);
-        $view->vars['options'] = json_encode(array_intersect_key($options, array(
-            'mask'        => null,
-            'placeholder' => '_'
-        )));
+        $view->vars['options'] = json_encode(array_intersect_key($options, array_merge(array('mask' => null), $this->config)));
+    }
+
+    public function setConfiguration(array $config)
+    {
+        $this->config = $config;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setRequired(array('mask'))
-                 ->setDefaults(array('placeholder' => '_'));
+        $resolver->setRequired(array('mask'))->setDefaults($this->config);
     }
 
     /**

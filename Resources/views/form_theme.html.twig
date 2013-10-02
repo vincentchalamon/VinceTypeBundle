@@ -89,7 +89,7 @@
     <script type="text/javascript" src="{{ asset('bundles/vincetype/masked/jquery.maskedinput.min.js') }}"></script>
     <script type="text/javascript">
         $(function () {
-            $('#{{ id }}').mask({{ mask }}, {{ options|raw }});
+            $('#{{ id }}').mask('{{ mask }}', {{ options|raw }});
         });
     </script>
 {% endspaceless %}
@@ -120,7 +120,8 @@
                 noResultsText: '{{ 'token.text.noResults'|trans({}, 'Vince') }}',
                 searchingText: '{{ 'token.text.searching'|trans({}, 'Vince') }}',
                 deleteText: '{{ 'token.text.delete'|trans({}, 'Vince') }}',
-                theme: 'facebook'
+                theme: 'facebook',
+                prePopulate: {{ value|raw }}
             }, {{ options|raw }}));
         });
     </script>
@@ -146,7 +147,9 @@
     {% endif %}
     <script type="text/javascript">
         $(function () {
-            $('#{{ id }}').datepicker({{ options|raw }});
+            $('#{{ id }}').datepicker($.extend({
+                language: '{{ app.request.locale|lower }}'
+            }, {{ options|raw }}));
         });
     </script>
 {% endspaceless %}

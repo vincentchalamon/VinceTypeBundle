@@ -14,7 +14,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Description of DatepickerType.php
@@ -24,32 +24,29 @@ use Symfony\Component\Form\FormBuilderInterface;
 class DatepickerType extends AbstractType
 {
 
-    const DAYS   = 0;
-    const MONTHS = 1;
-    const YEARS  = 2;
-
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        // Transformer : \DateTime to string
-    }
+    protected $config = array(), $format;
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['options'] = json_encode(array_intersect_key($options, array(
-            'weekStart'   => 0,
-            'viewMode'    => self::DAYS,
-            'minViewMode' => self::DAYS
-        )));
+        $view->vars['options'] = json_encode(array_intersect_key($options, $this->config));
+    }
+
+    public function setConfiguration(array $config)
+    {
+        $this->config = $config;
+    }
+
+    public function setTranslator(TranslatorInterface $translator)
+    {
+        $this->format = $translator->trans('datepicker.format', array(), 'Vince');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'widget'      => 'single_text',
-            'weekStart'   => 0,
-            'viewMode'    => self::DAYS,
-            'minViewMode' => self::DAYS
-        ));
+        $resolver->setDefaults(array_merge(array(
+            'widget' => 'single_text',
+            'format' => $this->format
+        ), $this->config));
     }
 
     /**

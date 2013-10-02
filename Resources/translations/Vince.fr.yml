@@ -1,5 +1,5 @@
 datepicker:
-    format: dd/mm/yy
+    format: dd/MM/yyyy
 
 redactor:
     messages:

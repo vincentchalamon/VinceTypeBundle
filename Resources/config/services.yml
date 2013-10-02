@@ -63,8 +63,23 @@ parameters:
         animateDropdown: true
         resultsLimit: null
         tokenLimit: null
-        tokenDelimiter: ,
+        tokenDelimiter: ','
         preventDuplicates: true
+    vince.type.masked:
+        placeholder: _
+    vince.type.datepicker:
+        weekStart: 0
+        calendarWeeks: false
+        daysOfWeekDisabled: []
+        autoclose: true
+        startView: 0
+        minViewMode: 0
+        todayBtn: false
+        todayHighlight: true
+        clearBtn: false
+        keyboardNavigation: true
+        forceParse: true
+        orientation: auto
 
 services:
     # Twig
@@ -97,14 +112,20 @@ services:
         class: Vince\Bundle\TypeBundle\Form\Type\TokenType
         calls:
             - [setConfiguration, [%vince.type.token%]]
+            - [setEntityManager, [@doctrine.orm.entity_manager]]
         tags:
             - { name: form.type, alias: token }
     form.type.masked:
         class: Vince\Bundle\TypeBundle\Form\Type\MaskedType
+        calls:
+            - [setConfiguration, [%vince.type.masked%]]
         tags:
             - { name: form.type, alias: masked }
     form.type.datepicker:
         class: Vince\Bundle\TypeBundle\Form\Type\DatepickerType
+        calls:
+            - [setConfiguration, [%vince.type.datepicker%]]
+            - [setTranslator, [@translator]]
         tags:
             - { name: form.type, alias: datepicker }
     form.type.dropzone:
