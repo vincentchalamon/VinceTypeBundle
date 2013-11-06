@@ -127,7 +127,3 @@ services:
             - [setTranslator, [@translator]]
         tags:
             - { name: form.type, alias: datepicker }
-    form.type.dropzone:
-        class: Vince\Bundle\TypeBundle\Form\Type\DropzoneType
-        tags:
-            - { name: form.type, alias: dropzone }

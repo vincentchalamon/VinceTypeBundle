@@ -7,7 +7,7 @@ Form types for Symfony 2.3
 TODO
 ====
 
-* Unicité des sources : gérées manuellement ?
+* Documentation
 * Créer un widget stylé comme token mais sans autocomplete
 * Dropzone :
     * Hérite du champ text
