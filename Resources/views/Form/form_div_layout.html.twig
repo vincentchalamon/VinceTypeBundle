@@ -42,9 +42,9 @@
 
 {% block redactor_javascript %}
     {% spaceless %}
-        {% if app.request.locale != 'en' %}
+        {#% if app.request.locale != 'en' %}
             <script type="text/javascript" src="{{ asset('bundles/vincetype/redactor/langs/' ~ app.request.locale ~ '.js') }}"></script>
-        {% endif %}
+        {% endif %#}
         <script type="text/javascript">
             $(function () {
                 $('#{{ id }}').redactor($.extend({
@@ -117,9 +117,9 @@
 
 {% block datepicker_javascript %}
     {% spaceless %}
-        {% if app.request.locale != 'en' %}
+        {#% if app.request.locale != 'en' %}
             <script type="text/javascript" src="{{ asset('bundles/vincetype/datepicker/langs/bootstrap-datepicker.' ~ app.request.locale ~ '.js') }}"></script>
-        {% endif %}
+        {% endif %#}
         <script type="text/javascript">
             $(function () {
                 $('#{{ id }}').datepicker($.extend({
