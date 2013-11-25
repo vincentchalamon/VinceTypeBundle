@@ -75,7 +75,7 @@ parameters:
         startView: 0
         minViewMode: 0
         todayBtn: false
-        todayHighlight: true
+        todayHighlight: false
         clearBtn: false
         keyboardNavigation: true
         forceParse: true
