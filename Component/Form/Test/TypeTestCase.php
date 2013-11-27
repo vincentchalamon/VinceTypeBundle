@@ -36,7 +36,7 @@ abstract class TypeTestCase extends BaseTypeTestCase
         $this->factory = Forms::createFormFactoryBuilder()
             ->addExtensions($this->getExtensions())
             ->addTypeExtensions(array(new HelpTypeExtension(), new LocaleTypeExtension()))
-        ;
+            ->getFormFactory();
     }
 
     /**
