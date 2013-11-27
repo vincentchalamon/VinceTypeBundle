@@ -17,6 +17,7 @@ use Vince\Bundle\TypeBundle\Form\Type\DatepickerType;
 use Vince\Bundle\TypeBundle\Form\Type\MaskedType;
 use Vince\Bundle\TypeBundle\Form\Type\RedactorType;
 use Vince\Bundle\TypeBundle\Form\Type\TokenType;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Add features to form tests
@@ -44,12 +45,34 @@ abstract class TypeTestCase extends BaseTypeTestCase
      */
     protected function getExtensions()
     {
-        return array(new PreloadedExtension(array(
+        $types = array(
             'masked'     => new MaskedType(),
             'datepicker' => new DatepickerType(),
             'redactor'   => new RedactorType(),
             'token'      => new TokenType()
-            ), array())
         );
+        foreach ($types as $name => $type) {
+            if (is_callable(array($type, 'setConfiguration'))) {
+                $types[$name]->setConfiguration($this->getConfiguration($name));
+            }
+        }
+
+        return array(new PreloadedExtension($types, array()));
+    }
+
+    /**
+     * Get configuration
+     *
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @param string $name Configuration name
+     *
+     * @return array
+     */
+    protected function getConfiguration($name)
+    {
+        $configuration = Yaml::parse(rtrim(__DIR__, '/').'/../../../Resources/config/services.yml');
+
+        return $configuration['parameters'][sprintf('vince.type.%s', $name)];
     }
 }

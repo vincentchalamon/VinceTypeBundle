@@ -24,7 +24,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 class DatepickerType extends AbstractType
 {
 
-    protected $config = array(), $format;
+    protected $config = array(), $format = 'MM/dd/yyyy';
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
