@@ -26,7 +26,11 @@ use Vince\Bundle\TypeBundle\Form\Transformer\TokenTransformer;
 class TokenType extends AbstractType
 {
 
-    /** @var $em EntityManager */
+    /**
+     * EntityManager
+     *
+     * @var $em EntityManager
+     */
     protected $em;
 
     protected $config = array();

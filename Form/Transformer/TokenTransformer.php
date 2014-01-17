@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Symfony package.
+ * This file is part of the VinceType bundle.
  *
  * (c) Vincent Chalamon <vincentchalamon@gmail.com>
  *
@@ -23,7 +23,11 @@ use Symfony\Component\Form\DataTransformerInterface;
 class TokenTransformer implements DataTransformerInterface
 {
 
-    /** @var $em EntityManager */
+    /**
+     * EntityManager
+     *
+     * @var $em EntityManager
+     */
     protected $em;
 
     protected $class, $delimiter, $identifier, $identifierMethod, $renderMethod;
@@ -50,7 +54,7 @@ class TokenTransformer implements DataTransformerInterface
      */
     public function transform($values)
     {
-        /** @var $values Collection */
+        /** @var Collection $values */
         if (!is_object($values) || !$values instanceof Collection) {
             throw new \InvalidArgumentException(sprintf('Token form type only accept Collection object, %s sent.', is_object($values) ? 'instance of '.get_class($values) : gettype($values)));
         }
