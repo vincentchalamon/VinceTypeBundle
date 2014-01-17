@@ -49,34 +49,31 @@ class RedactorController extends Controller
     }
 
     /**
-     * List files in paths
+     * List files in path
      *
      * @author Vincent Chalamon <vincent@ylly.fr>
      *
-     * @param string $paths List of paths
+     * @param string $path Path
      *
      * @return JsonResponse
      */
-    public function listFilesAction($paths)
+    public function listFilesAction($path)
     {
         $files  = array();
-        $paths  = explode('/', $paths);
         $webDir = rtrim($this->container->getParameter('kernel.web_dir'), '/');
-        foreach ($paths as $path) {
-            if (!substr($path, 0, 1) != '/') {
-                $path = sprintf('/%s', $path);
-            }
-            if (realpath($webDir.$path)) {
-                $finder = Finder::create()->files()->name('/\.(?:gif|png|jpg|jpeg)$/i');
-                foreach ($finder->in(realpath($webDir.$path)) as $img) {
-                    /** @var SplFileInfo $img */
-                    $files[] = array(
-                        'thumb'  => substr($img->getRealPath(), strlen(realpath($webDir))),
-                        'image'  => substr($img->getRealPath(), strlen(realpath($webDir))),
-                        'title'  => pathinfo($img->getRealPath(), PATHINFO_FILENAME),
-                        'folder' => pathinfo($path, PATHINFO_BASENAME)
-                    );
-                }
+        if (!substr($path, 0, 1) != '/') {
+            $path = sprintf('/%s', $path);
+        }
+        if (realpath($webDir.$path)) {
+            $finder = Finder::create()->files()->name('/\.(?:gif|png|jpg|jpeg)$/i');
+            foreach ($finder->in(realpath($webDir.$path)) as $img) {
+                /** @var SplFileInfo $img */
+                $files[] = array(
+                    'thumb'  => $path.'/'.$img->getFilename(),
+                    'image'  => $path.'/'.$img->getFilename(),
+                    'title'  => pathinfo($img->getRealPath(), PATHINFO_FILENAME),
+                    'folder' => pathinfo($path, PATHINFO_BASENAME)
+                );
             }
         }
 

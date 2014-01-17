@@ -1,17 +1,21 @@
 redactor-upload:
     pattern:  /redactor/upload
     defaults: { _controller: VinceTypeBundle:Redactor:upload }
-    requirements: { _method: POST }
+    requirements:
+        _format: json
+        _method: POST
 
 redactor-list-files:
-    pattern:  /redactor/list-files/{paths}
+    pattern:  /redactor/list-files/{path}
     defaults: { _controller: VinceTypeBundle:Redactor:listFiles }
     requirements:
         _format: json
         _method: GET
-        paths: "^.+"
+        path: "^.+"
 
 token-search:
     pattern:  /token/search
     defaults: { _controller: VinceTypeBundle:Token:search }
-    requirements: { _method: POST }
+    requirements:
+        _format: json
+        _method: POST
