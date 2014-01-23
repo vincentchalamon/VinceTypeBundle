@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the VinceTypeBundle.
+ * This file is part of the VinceType bundle.
  *
  * (c) Vincent Chalamon <vincentchalamon@gmail.com>
  *
