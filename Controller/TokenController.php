@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Search results for token completion
  *
- * @author Vincent Chalamon <vincent@ylly.fr>
+ * @author Vincent Chalamon <vincentchalamon@gmail.com>
  */
 class TokenController extends Controller
 {
@@ -22,7 +22,7 @@ class TokenController extends Controller
     /**
      * Search results for token completion
      *
-     * @author Vincent Chalamon <vincent@ylly.fr>
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
      * @return JsonResponse
      * @throws \InvalidArgumentException
      */

@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 /**
  * Test RedactorController
  *
- * @author Vincent Chalamon <vincent@ylly.fr>
+ * @author Vincent Chalamon <vincentchalamon@gmail.com>
  */
 class RedactorControllerTest extends WebTestCase
 {
@@ -23,7 +23,7 @@ class RedactorControllerTest extends WebTestCase
     /**
      * Test upload
      *
-     * @author Vincent Chalamon <vincent@ylly.fr>
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
      */
     public function testUpload()
     {
@@ -62,7 +62,7 @@ class RedactorControllerTest extends WebTestCase
     /**
      * Test list files
      *
-     * @author Vincent Chalamon <vincent@ylly.fr>
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
      */
     public function testListFiles()
     {

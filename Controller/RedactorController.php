@@ -16,7 +16,7 @@ use Symfony\Component\Finder\SplFileInfo;
 /**
  * Files features for redactor
  *
- * @author Vincent Chalamon <vincent@ylly.fr>
+ * @author Vincent Chalamon <vincentchalamon@gmail.com>
  */
 class RedactorController extends Controller
 {
@@ -24,7 +24,7 @@ class RedactorController extends Controller
     /**
      * Upload file to user public directory
      *
-     * @author Vincent Chalamon <vincent@ylly.fr>
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
      * @return JsonResponse
      */
     public function uploadAction()
@@ -51,7 +51,7 @@ class RedactorController extends Controller
     /**
      * List files in path
      *
-     * @author Vincent Chalamon <vincent@ylly.fr>
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
      *
      * @param string $path Path
      *
