@@ -53,7 +53,7 @@ abstract class TypeTestCase extends BaseTypeTestCase
         );
         foreach ($types as $name => $type) {
             if (is_callable(array($type, 'setConfiguration'))) {
-                $types[$name]->setConfiguration($this->getConfiguration($name));
+                call_user_func(array($types[$name], 'setConfiguration'), $this->getConfiguration($name));
             }
         }
 
