@@ -13,7 +13,7 @@ namespace Vince\Bundle\TypeBundle\Form\Extension;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\HttpFoundation\Request;
+use Vince\Bundle\TypeBundle\Listener\LocaleListener;
 
 /**
  * Form extension to inject `locale` parameter
@@ -39,11 +39,15 @@ class LocaleTypeExtension extends AbstractTypeExtension
     }
 
     /**
-     * {@inheritdoc}
+     * Set locale
+     *
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @param LocaleListener $listener
      */
-    public function setRequest(Request $request)
+    public function setLocale(LocaleListener $listener)
     {
-        $this->locale = $request->getLocale();
+        $this->locale = $listener->getLocale();
     }
 
     /**
