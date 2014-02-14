@@ -28,7 +28,7 @@ class TokenController extends Controller
      */
     public function searchAction()
     {
-        $repository = $this->get('doctrine.orm.entity_manager')->getRepository($this->getRequest()->get('entity'));
+        $repository = $this->get('doctrine.orm.default_entity_manager')->getRepository($this->getRequest()->get('entity'));
         if (!is_callable(array($repository, $this->getRequest()->get('method')))) {
             throw new \InvalidArgumentException(sprintf('Method %s is not callable in %s repository.', $this->getRequest()->get('method'), $this->getRequest()->get('entity')));
         }
