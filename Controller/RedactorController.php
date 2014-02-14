@@ -31,8 +31,9 @@ class RedactorController extends Controller
     {
         if (!$this->getRequest()->files->has('file')) {
             return new JsonResponse(array(
-                'error' => $this->get('translator')->trans('redactor.messages.fileUploadError', array(), 'Vince')
-            ));
+                    'error' => $this->get('translator')->trans('redactor.messages.fileUploadError', array(), 'Vince')
+                )
+            );
         }
         $file   = $this->getRequest()->files->get('file');
         $web    = rtrim($this->container->getParameter('kernel.web_dir'), '/');
@@ -43,9 +44,10 @@ class RedactorController extends Controller
         $file->move(realpath($web.$upload), $file->getClientOriginalName());
 
         return new JsonResponse(array(
-            'filelink' => sprintf('%s/%s', $upload, $file->getClientOriginalName()),
-            'filename' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
-        ));
+                'filelink' => sprintf('%s/%s', $upload, $file->getClientOriginalName()),
+                'filename' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
+            )
+        );
     }
 
     /**

@@ -10,31 +10,45 @@
  */
 namespace Vince\Bundle\TypeBundle\Form\Extension;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Description of LocaleTypeExtension.php
+ * Form extension to inject `locale` parameter
  *
  * @author Vincent Chalamon <vincentchalamon@gmail.com>
  */
 class LocaleTypeExtension extends AbstractTypeExtension
 {
 
+    /**
+     * Locale
+     *
+     * @var string
+     */
     protected $locale;
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars = array_replace($view->vars, array('locale' => $this->locale));
     }
 
-    public function setContainer(ContainerInterface $container)
+    /**
+     * {@inheritdoc}
+     */
+    public function setRequest(Request $request)
     {
-        $this->locale = $container->get('request')->getLocale();
+        $this->locale = $request->getLocale();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getExtendedType()
     {
         return 'form';

@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
- * Description of TokenTransformer
+ * Token transformer
  *
  * @author Vincent Chalamon <vincentchalamon@gmail.com>
  */
@@ -30,8 +30,49 @@ class TokenTransformer implements DataTransformerInterface
      */
     protected $em;
 
-    protected $class, $delimiter, $identifier, $identifierMethod, $renderMethod;
+    /**
+     * Class
+     *
+     * @var string
+     */
+    protected $class;
 
+    /**
+     * Delimiter
+     *
+     * @var string
+     */
+    protected $delimiter;
+
+    /**
+     * Identifier
+     *
+     * @var string
+     */
+    protected $identifier;
+
+    /**
+     * Identifier method
+     *
+     * @var string
+     */
+    protected $identifierMethod;
+
+    /**
+     * Render method
+     *
+     * @var string
+     */
+    protected $renderMethod;
+
+    /**
+     * @param EntityManager $em
+     * @param string        $class
+     * @param string        $delimiter
+     * @param string        $identifier
+     * @param string        $identifierMethod
+     * @param string        $renderMethod
+     */
     public function __construct(EntityManager $em, $class, $delimiter = ',', $identifier = 'id', $identifierMethod = 'getId', $renderMethod = '__toString')
     {
         $this->em               = $em;
@@ -44,13 +85,6 @@ class TokenTransformer implements DataTransformerInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @author Vincent Chalamon <vincentchalamon@gmail.com>
-     *
-     * @param Collection $values
-     *
-     * @return string
-     * @throws \InvalidArgumentException
      */
     public function transform($values)
     {
@@ -75,12 +109,6 @@ class TokenTransformer implements DataTransformerInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @author Vincent Chalamon <vincentchalamon@gmail.com>
-     *
-     * @param string $values
-     *
-     * @return ArrayCollection
      */
     public function reverseTransform($values)
     {

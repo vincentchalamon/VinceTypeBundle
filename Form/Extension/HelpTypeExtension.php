@@ -16,13 +16,16 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Description of HelpTypeExtension.php
+ * Form extension to inject `help` parameter
  *
  * @author Vincent Chalamon <vincentchalamon@gmail.com>
  */
 class HelpTypeExtension extends AbstractTypeExtension
 {
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         if (isset($options['help'])) {
@@ -30,11 +33,17 @@ class HelpTypeExtension extends AbstractTypeExtension
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setOptional(array('help'));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getExtendedType()
     {
         return 'form';

@@ -12,6 +12,9 @@ namespace Vince\Bundle\TypeBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
+/**
+ * {@inheritdoc}
+ */
 class VinceTypeBundle extends Bundle
 {
 }

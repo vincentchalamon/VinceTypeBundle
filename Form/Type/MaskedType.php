@@ -23,8 +23,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class MaskedType extends AbstractType
 {
 
+    /**
+     * Config
+     *
+     * @var array
+     */
     protected $config = array();
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['mask'] = $options['mask'];
@@ -32,21 +40,28 @@ class MaskedType extends AbstractType
         $view->vars['options'] = json_encode(array_intersect_key($options, array_merge(array('mask' => null), $this->config)));
     }
 
+    /**
+     * Set configuration
+     *
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @param array $config
+     */
     public function setConfiguration(array $config)
     {
         $this->config = $config;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setRequired(array('mask'))->setDefaults($this->config);
     }
 
     /**
-     * Get current type name.
-     *
-     * @author Vincent CHALAMON <vincentchalamon@gmail.com>
-     * @return string Current type name
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -54,10 +69,7 @@ class MaskedType extends AbstractType
     }
 
     /**
-     * Define parent field type.
-     *
-     * @author Vincent CHALAMON <vincentchalamon@gmail.com>
-     * @return string
+     * {@inheritdoc}
      */
     public function getParent()
     {

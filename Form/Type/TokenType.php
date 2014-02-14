@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Vince\Bundle\TypeBundle\Form\Transformer\TokenTransformer;
 
 /**
- * Description of TokenType.php
+ * Form type token
  *
  * @author Vincent Chalamon <vincentchalamon@gmail.com>
  */
@@ -33,13 +33,24 @@ class TokenType extends AbstractType
      */
     protected $em;
 
+    /**
+     * Config
+     *
+     * @var array
+     */
     protected $config = array();
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addViewTransformer(new TokenTransformer($this->em, $options['entity'], $options['tokenDelimiter'], $options['identifier'], $options['identifierMethod'], $options['renderMethod']));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['entity']       = $options['entity'];
@@ -48,16 +59,33 @@ class TokenType extends AbstractType
         $view->vars['options'] = json_encode(array_intersect_key($options, $this->config));
     }
 
+    /**
+     * Set configuration
+     *
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @param array $config
+     */
     public function setConfiguration(array $config)
     {
         $this->config = $config;
     }
 
+    /**
+     * Set EntityManager
+     *
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @param EntityManager $em
+     */
     public function setEntityManager(EntityManager $em)
     {
         $this->em = $em;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setRequired(array('entity'))
@@ -69,10 +97,7 @@ class TokenType extends AbstractType
     }
 
     /**
-     * Get current type name.
-     *
-     * @author Vincent CHALAMON <vincentchalamon@gmail.com>
-     * @return string Current type name
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -80,10 +105,7 @@ class TokenType extends AbstractType
     }
 
     /**
-     * Define parent field type.
-     *
-     * @author Vincent CHALAMON <vincentchalamon@gmail.com>
-     * @return string
+     * {@inheritdoc}
      */
     public function getParent()
     {

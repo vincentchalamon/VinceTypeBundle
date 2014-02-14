@@ -24,36 +24,65 @@ use Symfony\Component\Translation\TranslatorInterface;
 class DatepickerType extends AbstractType
 {
 
-    protected $config = array(), $format = 'MM/dd/yyyy';
+    /**
+     * Config
+     *
+     * @var array
+     */
+    protected $config = array();
 
+    /**
+     * Format
+     *
+     * @var string
+     */
+    protected $format = 'MM/dd/yyyy';
+
+    /**
+     * {@inheritdoc}
+     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['options'] = json_encode(array_intersect_key($options, $this->config));
     }
 
+    /**
+     * Set configuration
+     *
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @param array $config
+     */
     public function setConfiguration(array $config)
     {
         $this->config = $config;
     }
 
+    /**
+     * Set translator
+     *
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @param TranslatorInterface $translator
+     */
     public function setTranslator(TranslatorInterface $translator)
     {
         $this->format = $translator->trans('datepicker.format', array(), 'Vince');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array_merge(array(
-            'widget' => 'single_text',
-            'format' => $this->format
-        ), $this->config));
+                    'widget' => 'single_text',
+                    'format' => $this->format
+                ), $this->config));
     }
 
     /**
-     * Get current type name.
-     *
-     * @author Vincent CHALAMON <vincentchalamon@gmail.com>
-     * @return string Current type name
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -61,10 +90,7 @@ class DatepickerType extends AbstractType
     }
 
     /**
-     * Define parent field type.
-     *
-     * @author Vincent CHALAMON <vincentchalamon@gmail.com>
-     * @return string
+     * {@inheritdoc}
      */
     public function getParent()
     {

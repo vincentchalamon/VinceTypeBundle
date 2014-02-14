@@ -10,6 +10,11 @@
  */
 namespace Vince\Bundle\TypeBundle\Twig\Extension;
 
+/**
+ * Twig form extension
+ *
+ * @author Vincent Chalamon <vincentchalamon@gmail.com>
+ */
 class FormExtension extends \Twig_Extension
 {
 
@@ -28,10 +33,7 @@ class FormExtension extends \Twig_Extension
     }
 
     /**
-     * Get twig extension name
-     *
-     * @author Vincent CHALAMON <vincentchalamon@gmail.com>
-     * @return string Twig extension name
+     * {@inheritdoc}
      */
     public function getName()
     {

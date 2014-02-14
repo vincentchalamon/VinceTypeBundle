@@ -13,7 +13,7 @@ namespace Vince\Bundle\TypeBundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
- * Test RedactorController
+ * Test Redactor controller
  *
  * @author Vincent Chalamon <vincentchalamon@gmail.com>
  */
@@ -43,12 +43,14 @@ class RedactorControllerTest extends WebTestCase
         $contents = file_get_contents(__DIR__.'/../../Resources/public/sample.png');
         file_put_contents($filename, $contents);
         $client->request('POST', '/redactor/upload', array(), array('file' => array(
-                'tmp_name' => $filename,
-                'name' => 'sample.png',
-                'type' => 'image/png',
-                'size' => 123,
-                'error' => UPLOAD_ERR_OK
-            )));
+                    'tmp_name' => $filename,
+                    'name' => 'sample.png',
+                    'type' => 'image/png',
+                    'size' => 123,
+                    'error' => UPLOAD_ERR_OK
+                )
+            )
+        );
         $this->assertTrue($client->getResponse()->isSuccessful());
         $filename = $client->getContainer()->getParameter('kernel.web_dir').$client->getContainer()->getParameter('kernel.uploads_path').'/sample.png';
         $this->assertFileExists($filename);

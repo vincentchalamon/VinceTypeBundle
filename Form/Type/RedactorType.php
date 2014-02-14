@@ -16,35 +16,50 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Description of RedactorType.php
+ * Form type redactor
  *
  * @author Vincent Chalamon <vincentchalamon@gmail.com>
  */
 class RedactorType extends AbstractType
 {
 
+    /**
+     * Config
+     *
+     * @var array
+     */
     protected $config = array();
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['options'] = json_encode(array_intersect_key(array_merge($options, array('imageGetJson' => '/app_dev.php/redactor/list-files/uploads')), array_merge($this->config, array('imageGetJson' => null))));
     }
 
+    /**
+     * Set configuration
+     *
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @param array $config
+     */
     public function setConfiguration(array $config)
     {
         $this->config = $config;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array_merge($this->config, array('paths' => array('/uploads'))));
     }
 
     /**
-     * Get current type name.
-     *
-     * @author Vincent CHALAMON <vincentchalamon@gmail.com>
-     * @return string Current type name
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -52,10 +67,7 @@ class RedactorType extends AbstractType
     }
 
     /**
-     * Define parent field type.
-     *
-     * @author Vincent CHALAMON <vincentchalamon@gmail.com>
-     * @return string
+     * {@inheritdoc}
      */
     public function getParent()
     {
