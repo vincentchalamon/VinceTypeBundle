@@ -89,11 +89,15 @@ services:
             - { name: twig.extension }
 
     # Form extensions
+    form.type_extension.locale_listener:
+        class: Vince\Bundle\TypeBundle\Listener\LocaleListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
     form.type_extension.locale:
         class: Vince\Bundle\TypeBundle\Form\Extension\LocaleTypeExtension
         scope: request
         calls:
-            - [setRequest, [@request]]
+            - [setLocale, [@form.type_extension.locale_listener]]
         tags:
             - { name: form.type_extension, alias: form }
     form.type_extension.help:
