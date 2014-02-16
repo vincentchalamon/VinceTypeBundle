@@ -10,7 +10,6 @@
  */
 namespace Vince\Bundle\TypeBundle\Form\Type;
 
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -27,13 +26,6 @@ class TokenType extends AbstractType
 {
 
     /**
-     * EntityManager
-     *
-     * @var $em EntityManager
-     */
-    protected $em;
-
-    /**
      * Config
      *
      * @var array
@@ -45,7 +37,7 @@ class TokenType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addViewTransformer(new TokenTransformer($this->em, $options['entity'], $options['tokenDelimiter'], $options['identifier'], $options['identifierMethod'], $options['renderMethod']));
+        $builder->addViewTransformer(new TokenTransformer($options['em'], $options['entity'], $options['tokenDelimiter'], $options['identifier'], $options['identifierMethod'], $options['renderMethod']));
     }
 
     /**
@@ -72,24 +64,14 @@ class TokenType extends AbstractType
     }
 
     /**
-     * Set EntityManager
-     *
-     * @author Vincent Chalamon <vincentchalamon@gmail.com>
-     *
-     * @param EntityManager $em
-     */
-    public function setEntityManager(EntityManager $em)
-    {
-        $this->em = $em;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setRequired(array('entity'))
-                 ->setDefaults(array_merge(array(
+        $resolver
+            ->setRequired(array('entity', 'em'))
+            ->setAllowedTypes(array('em' => 'Doctrine\ORM\EntityManager'))
+            ->setDefaults(array_merge(array(
                         'renderMethod'     => '__toString',
                         'identifierMethod' => 'getId',
                         'identifier'       => 'id'

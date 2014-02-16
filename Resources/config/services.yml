@@ -112,7 +112,6 @@ services:
         class: Vince\Bundle\TypeBundle\Form\Type\TokenType
         calls:
             - [setConfiguration, [%vince.type.token%]]
-            - [setEntityManager, [@doctrine.orm.default_entity_manager]]
         tags:
             - { name: form.type, alias: token }
     form.type.masked:

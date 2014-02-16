@@ -26,7 +26,7 @@ class TokenTransformer implements DataTransformerInterface
     /**
      * EntityManager
      *
-     * @var $em EntityManager
+     * @var EntityManager
      */
     protected $em;
 
