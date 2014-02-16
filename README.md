@@ -1,8 +1,9 @@
 VinceTypeBundle
 ==============
 
-Form types for Symfony 2.3
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a823557f-3175-4103-a737-0a8f771b1a64/small.png)](https://insight.sensiolabs.com/projects/a823557f-3175-4103-a737-0a8f771b1a64)
 
+Form types for Symfony 2.3
 
 TODO
 ====
