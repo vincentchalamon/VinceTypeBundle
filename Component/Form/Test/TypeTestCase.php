@@ -46,8 +46,8 @@ abstract class TypeTestCase extends BaseTypeTestCase
     protected function getExtensions()
     {
         $types = array(
-            'masked'     => new MaskedType(),
             'datepicker' => new DatepickerType(),
+            'masked'     => new MaskedType(),
             'redactor'   => new RedactorType(),
             'token'      => new TokenType()
         );
