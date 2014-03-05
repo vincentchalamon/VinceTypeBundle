@@ -118,6 +118,10 @@ services:
             - [setConfiguration, [%vince.type.token%]]
         tags:
             - { name: form.type, alias: token }
+    form.type.list:
+        class: Vince\Bundle\TypeBundle\Form\Type\ListType
+        tags:
+            - { name: form.type, alias: list }
     form.type.masked:
         class: Vince\Bundle\TypeBundle\Form\Type\MaskedType
         calls:

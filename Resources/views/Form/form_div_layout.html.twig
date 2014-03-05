@@ -113,6 +113,19 @@
 {% endblock token_javascript %}
 
 
+{# List #}
+
+{% block list_javascript %}
+    {% spaceless %}
+        <script type="text/javascript">
+            $(function () {
+                $('#{{ id }}').listInput({{ options|raw }});
+            });
+        </script>
+    {% endspaceless %}
+{% endblock list_javascript %}
+
+
 {# Datepicker #}
 
 {% block datepicker_javascript %}

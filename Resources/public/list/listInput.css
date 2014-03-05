@@ -1,0 +1,51 @@
+.listInput {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    border: 1px solid #8496ba;
+    font-family: Verdana;
+    min-height: 23px;
+}
+
+.listInput li {
+    float: left;
+    background-color: #e2e6f0;
+    border: 1px solid #9daccc;
+    margin: 4px 2px;
+    padding: 0 1px 0 3px;
+    border-radius: 2px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.listInput li.selected {
+    background-color: #9daccc;
+    border-color: #3b5998;
+    color: white;
+}
+
+.listInput li.selected a {
+    color: white;
+}
+
+.listInput li.input {
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    height: 23px;
+}
+
+.listInput li input {
+    margin: 0;
+    height: 100%;
+    border: none;
+}
+
+.listInput li a {
+    color: #a6b3cf;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 3px;
+}
