@@ -37,7 +37,7 @@ class TokenType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addViewTransformer(new TokenTransformer($options['em'], $options['entity'], $options['tokenDelimiter'], $options['identifier'], $options['identifierMethod'], $options['renderMethod']));
+        $builder->addModelTransformer(new TokenTransformer($options['em'], $options['entity'], $options['tokenDelimiter'], $options['identifier'], $options['identifierMethod'], $options['renderMethod']));
     }
 
     /**

@@ -10,6 +10,7 @@
  */
 namespace Vince\Bundle\TypeBundle\Form\Transformer;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
@@ -38,28 +39,33 @@ class ListTransformer implements DataTransformerInterface
     /**
      * {@inheritdoc}
      */
-    public function transform($values)
+    public function transform($value)
     {
-        /** @var array $values */
-        if (!is_array($values)) {
-            throw new \InvalidArgumentException(sprintf('Token form type only accept array, %s sent.', is_object($values) ? 'instance of '.get_class($values) : gettype($values)));
+        // Fix for Symfony 2.4
+        if (null === $value) {
+            return null;
         }
 
-        return implode($this->separator, $values);
+        /** @var array $values */
+        if (!is_array($value)) {
+            throw new \InvalidArgumentException(sprintf('List form type only accept array, %s sent.', is_object($value) ? 'instance of '.get_class($value) : gettype($value)));
+        }
+
+        return implode($this->separator, $value);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function reverseTransform($values)
+    public function reverseTransform($value)
     {
-        $values = explode($this->separator, $values);
-        foreach ($values as $key => $value) {
-            if (!trim($value)) {
-                unset($values[$key]);
+        $value = explode($this->separator, trim($value));
+        foreach ($value as $key => $val) {
+            if (!trim($val)) {
+                unset($value[$key]);
             }
         }
 
-        return $values ?: array();
+        return $value;
     }
 }

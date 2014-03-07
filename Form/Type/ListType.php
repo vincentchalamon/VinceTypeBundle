@@ -30,7 +30,7 @@ class ListType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addViewTransformer(new ListTransformer($options['separator']));
+        $builder->addModelTransformer(new ListTransformer($options['separator']));
     }
 
     /**

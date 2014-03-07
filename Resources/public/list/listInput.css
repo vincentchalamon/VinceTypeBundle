@@ -1,9 +1,7 @@
 .listInput {
-    margin: 0;
-    padding: 0;
+    display: inline-block;
     list-style: none;
     overflow: hidden;
-    border: 1px solid #8496ba;
     font-family: Verdana;
     min-height: 23px;
 }
@@ -34,13 +32,6 @@
     border: none;
     margin: 0;
     padding: 0;
-    height: 23px;
-}
-
-.listInput li input {
-    margin: 0;
-    height: 100%;
-    border: none;
 }
 
 .listInput li a {

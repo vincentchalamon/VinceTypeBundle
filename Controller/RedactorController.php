@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Files features for redactor
@@ -25,17 +26,20 @@ class RedactorController extends Controller
      * Upload file to user public directory
      *
      * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @param Request $request
+     *
      * @return JsonResponse
      */
-    public function uploadAction()
+    public function uploadAction(Request $request)
     {
-        if (!$this->getRequest()->files->has('file')) {
+        if (!$request->files->has('file')) {
             return new JsonResponse(array(
                     'error' => $this->get('translator')->trans('redactor.messages.fileUploadError', array(), 'Vince')
                 )
             );
         }
-        $file   = $this->getRequest()->files->get('file');
+        $file   = $request->files->get('file');
         $web    = rtrim($this->container->getParameter('kernel.web_dir'), '/');
         $upload = rtrim($this->container->getParameter('kernel.uploads_path'), '/');
         if (!is_dir($web.$upload)) {

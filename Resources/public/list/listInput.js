@@ -14,8 +14,14 @@
             plugin.settings = $.extend({}, defaults, options);
 
             $('<ul>').addClass('listInput')
-                .append($('<li>').addClass('input')
-                    .append($('<input>', {type: 'text'}).on('keyup', function (event) {
+                .append($('<li>').addClass('input').height($(element).outerHeight(true))
+                    .append($('<input>', {type: 'text'}).css({
+                        border: 'none',
+                        background: 'transparent',
+                        margin: '0 0 0 4px',
+                        padding: 0,
+                        height: $(element).outerHeight(true)
+                    }).on('keyup', function (event) {
                         if (event.which == 188 && $.trim($(this).val().substring(0, $.trim($(this).val()).length-1))) {
                             plugin.add($.trim($(this).val().substring(0, $.trim($(this).val()).length-1)));
                             $(this).val('');
@@ -34,13 +40,25 @@
                     }).on('focus', function () {
                         $('li.selected', $(this).closest('.listInput')).removeClass('event');
                     }))
-                ).insertBefore($(element)).width($(element).width());
+                ).insertBefore($(element)).css({
+                    width: $(element).outerWidth(true),
+                    margin: 0,
+                    padding: 0,
+                    border: $(element).css('border'),
+                    borderRadius: $(element).css('border-radius')
+                });
 
             $.each($(element).val().split(plugin.settings.separator), function (key, value) {
                 if ($.trim(value)) {
                     plugin.add(value);
                 }
             });
+
+            var width = $(element).outerWidth(true)-4;
+            $('.listInput li:not(.input)').each(function () {
+                width -= $(this).outerWidth(true);
+            });
+            $('li.input input', $(element).prev('ul.listInput')).width(width);
 
             $(element).hide();
         }

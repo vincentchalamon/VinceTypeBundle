@@ -86,16 +86,21 @@ class TokenTransformer implements DataTransformerInterface
     /**
      * {@inheritdoc}
      */
-    public function transform($values)
+    public function transform($value)
     {
-        /** @var Collection $values */
-        if (!is_object($values) || !$values instanceof Collection) {
-            throw new \InvalidArgumentException(sprintf('Token form type only accept Collection object, %s sent.', is_object($values) ? 'instance of '.get_class($values) : gettype($values)));
+        // Fix for Symfony 2.4
+        if (null === $value) {
+            return null;
+        }
+
+        /** @var Collection $value */
+        if (!is_object($value) || !$value instanceof Collection) {
+            throw new \InvalidArgumentException(sprintf('Token form type only accept Collection object, %s sent.', is_object($value) ? 'instance of '.get_class($value) : gettype($value)));
         }
         $identifierMethod = $this->identifierMethod;
         $renderMethod     = $this->renderMethod;
 
-        return json_encode($values->map(function ($value) use ($identifierMethod, $renderMethod) {
+        return json_encode($value->map(function ($value) use ($identifierMethod, $renderMethod) {
                 if (!is_callable(array($value, $identifierMethod))) {
                     throw new \Exception(sprintf('You must implement a %s method on your %s entity.', $identifierMethod, get_class($value)));
                 }
@@ -110,16 +115,16 @@ class TokenTransformer implements DataTransformerInterface
     /**
      * {@inheritdoc}
      */
-    public function reverseTransform($values)
+    public function reverseTransform($value)
     {
-        // Values is empty
-        if (!trim($values)) {
+        // Value is empty
+        if (!trim($value)) {
             return new ArrayCollection();
         }
 
         // Retrieve entities from their ids
         $builder = $this->em->getRepository($this->class)->createQueryBuilder('e');
-        $builder->where($builder->expr()->in(sprintf('e.%s', $this->identifier), explode($this->delimiter, trim($values))));
+        $builder->where($builder->expr()->in(sprintf('e.%s', $this->identifier), explode($this->delimiter, trim($value))));
 
         return new ArrayCollection($builder->getQuery()->execute());
     }
