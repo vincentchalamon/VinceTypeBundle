@@ -135,7 +135,7 @@
     {% spaceless %}
         <script type="text/javascript">
             $(function () {
-                $('#{{ id }}').datepicker($.extend({
+                $('#{{ id }}').addClass('datepicker-field').datepicker($.extend({
                     language: '{{ app.request.locale|lower }}'
                 }, {{ options|raw }}));
             });

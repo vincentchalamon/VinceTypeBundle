@@ -16,7 +16,6 @@
     /*.dow {
           border-top: 1px solid #ddd !important;
       }*/
-
 }
 .datepicker-inline {
     width: 220px;
@@ -496,9 +495,6 @@
     -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding;
-    background-clip: padding-box;
     *border-right-width: 2px;
     *border-bottom-width: 2px;
     color: #333333;
@@ -509,4 +505,8 @@
 .datepicker.dropdown-menu th,
 .datepicker.dropdown-menu td {
     padding: 4px 5px;
+}
+.datepicker-field {
+    background: url('img/calendar.png') no-repeat 98% center;
+    padding-right: 2%;
 }
