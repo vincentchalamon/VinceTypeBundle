@@ -12,7 +12,7 @@ namespace Vince\Bundle\TypeBundle\Form\Transformer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
@@ -24,9 +24,9 @@ class TokenTransformer implements DataTransformerInterface
 {
 
     /**
-     * EntityManager
+     * ObjectManager
      *
-     * @var EntityManager
+     * @var ObjectManager
      */
     protected $em;
 
@@ -66,14 +66,14 @@ class TokenTransformer implements DataTransformerInterface
     protected $renderMethod;
 
     /**
-     * @param EntityManager $em
+     * @param ObjectManager $em
      * @param string        $class
      * @param string        $delimiter
      * @param string        $identifier
      * @param string        $identifierMethod
      * @param string        $renderMethod
      */
-    public function __construct(EntityManager $em, $class, $delimiter = ',', $identifier = 'id', $identifierMethod = 'getId', $renderMethod = '__toString')
+    public function __construct(ObjectManager $em, $class, $delimiter = ',', $identifier = 'id', $identifierMethod = 'getId', $renderMethod = '__toString')
     {
         $this->em               = $em;
         $this->class            = $class;

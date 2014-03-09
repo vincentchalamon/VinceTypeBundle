@@ -25,13 +25,6 @@ class DatepickerType extends AbstractType
 {
 
     /**
-     * Config
-     *
-     * @var array
-     */
-    protected $config = array();
-
-    /**
      * Format
      *
      * @var string
@@ -43,19 +36,7 @@ class DatepickerType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['options'] = json_encode(array_intersect_key($options, $this->config));
-    }
-
-    /**
-     * Set configuration
-     *
-     * @author Vincent Chalamon <vincentchalamon@gmail.com>
-     *
-     * @param array $config
-     */
-    public function setConfiguration(array $config)
-    {
-        $this->config = $config;
+        $view->vars['options'] = json_encode(array_intersect_key($options, $this->getConfiguration()));
     }
 
     /**
@@ -78,7 +59,7 @@ class DatepickerType extends AbstractType
         $resolver->setDefaults(array_merge(array(
                     'widget' => 'single_text',
                     'format' => $this->format
-                ), $this->config));
+                ), $this->getConfiguration()));
     }
 
     /**
@@ -95,5 +76,30 @@ class DatepickerType extends AbstractType
     public function getParent()
     {
         return 'date';
+    }
+
+    /**
+     * Get configuration
+     *
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @return array
+     */
+    protected function getConfiguration()
+    {
+        return array(
+            'weekStart' => 0,
+            'calendarWeeks' => false,
+            'daysOfWeekDisabled' => array(),
+            'autoclose' => true,
+            'startView' => 0,
+            'minViewMode' => 0,
+            'todayBtn' => false,
+            'todayHighlight' => false,
+            'clearBtn' => false,
+            'keyboardNavigation' => true,
+            'forceParse' => true,
+            'orientation' => 'auto'
+        );
     }
 }

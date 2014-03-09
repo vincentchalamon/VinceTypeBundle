@@ -26,13 +26,6 @@ class TokenType extends AbstractType
 {
 
     /**
-     * Config
-     *
-     * @var array
-     */
-    protected $config = array();
-
-    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -48,19 +41,7 @@ class TokenType extends AbstractType
         $view->vars['entity']       = $options['entity'];
         $view->vars['searchMethod'] = $options['searchMethod'];
         unset($options['entity'], $options['searchMethod'], $options['renderMethod'], $options['identifier'], $options['identifierMethod']);
-        $view->vars['options'] = json_encode(array_intersect_key($options, $this->config));
-    }
-
-    /**
-     * Set configuration
-     *
-     * @author Vincent Chalamon <vincentchalamon@gmail.com>
-     *
-     * @param array $config
-     */
-    public function setConfiguration(array $config)
-    {
-        $this->config = $config;
+        $view->vars['options'] = json_encode(array_intersect_key($options, $this->getConfiguration()));
     }
 
     /**
@@ -70,12 +51,12 @@ class TokenType extends AbstractType
     {
         $resolver
             ->setRequired(array('entity', 'em'))
-            ->setAllowedTypes(array('em' => 'Doctrine\ORM\EntityManager'))
+            ->setAllowedTypes(array('em' => 'Doctrine\Common\Persistence\ObjectManager'))
             ->setDefaults(array_merge(array(
                         'renderMethod'     => '__toString',
                         'identifierMethod' => 'getId',
                         'identifier'       => 'id'
-                    ), $this->config));
+                    ), $this->getConfiguration()));
     }
 
     /**
@@ -92,5 +73,26 @@ class TokenType extends AbstractType
     public function getParent()
     {
         return 'text';
+    }
+
+    /**
+     * Get configuration
+     *
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @return array
+     */
+    protected function getConfiguration()
+    {
+        return array(
+            'searchMethod' => 'search',
+            'searchDelay' => 300,
+            'minChars' => 1,
+            'animateDropdown' => true,
+            'resultsLimit' => null,
+            'tokenLimit' => null,
+            'tokenDelimiter' => ',',
+            'preventDuplicates' => true
+        );
     }
 }

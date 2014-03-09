@@ -10,7 +10,6 @@
  */
 namespace Vince\Bundle\TypeBundle\Form\Transformer;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**

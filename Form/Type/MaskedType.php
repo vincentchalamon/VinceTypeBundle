@@ -24,32 +24,13 @@ class MaskedType extends AbstractType
 {
 
     /**
-     * Config
-     *
-     * @var array
-     */
-    protected $config = array();
-
-    /**
      * {@inheritdoc}
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['mask'] = $options['mask'];
         unset($options['mask']);
-        $view->vars['options'] = json_encode(array_intersect_key($options, array_merge(array('mask' => null), $this->config)));
-    }
-
-    /**
-     * Set configuration
-     *
-     * @author Vincent Chalamon <vincentchalamon@gmail.com>
-     *
-     * @param array $config
-     */
-    public function setConfiguration(array $config)
-    {
-        $this->config = $config;
+        $view->vars['options'] = json_encode(array_intersect_key($options, array_merge(array('mask' => null), $this->getConfiguration())));
     }
 
     /**
@@ -57,7 +38,7 @@ class MaskedType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setRequired(array('mask'))->setDefaults($this->config);
+        $resolver->setRequired(array('mask'))->setDefaults($this->getConfiguration());
     }
 
     /**
@@ -74,5 +55,17 @@ class MaskedType extends AbstractType
     public function getParent()
     {
         return 'text';
+    }
+
+    /**
+     * Get configuration
+     *
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @return array
+     */
+    protected function getConfiguration()
+    {
+        return array('placeholder' => '_');
     }
 }

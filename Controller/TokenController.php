@@ -9,7 +9,7 @@
 namespace Vince\Bundle\TypeBundle\Controller;
 
 use Doctrine\Common\Inflector\Inflector;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,12 +47,12 @@ class TokenController extends Controller
      *
      * @author Vincent Chalamon <vincentchalamon@gmail.com>
      *
-     * @param EntityManager $entityManager
+     * @param ObjectManager $entityManager
      * @param Request       $request
      *
      * @return array
      */
-    protected function parse(EntityManager $entityManager, Request $request)
+    protected function parse(ObjectManager $entityManager, Request $request)
     {
         $results    = call_user_func(array($entityManager->getRepository($request->get('entity')), $request->get('method')), $request->get('query'));
         $tokens     = array();

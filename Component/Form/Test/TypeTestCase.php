@@ -14,10 +14,10 @@ use Symfony\Component\Form\PreloadedExtension;
 use Vince\Bundle\TypeBundle\Form\Extension\HelpTypeExtension;
 use Vince\Bundle\TypeBundle\Form\Extension\LocaleTypeExtension;
 use Vince\Bundle\TypeBundle\Form\Type\DatepickerType;
+use Vince\Bundle\TypeBundle\Form\Type\ListType;
 use Vince\Bundle\TypeBundle\Form\Type\MaskedType;
 use Vince\Bundle\TypeBundle\Form\Type\RedactorType;
 use Vince\Bundle\TypeBundle\Form\Type\TokenType;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Add features to form tests
@@ -47,32 +47,12 @@ abstract class TypeTestCase extends BaseTypeTestCase
     {
         $types = array(
             'datepicker' => new DatepickerType(),
+            'list'       => new ListType(),
             'masked'     => new MaskedType(),
             'redactor'   => new RedactorType(),
             'token'      => new TokenType()
         );
-        foreach ($types as $name => $type) {
-            if (is_callable(array($type, 'setConfiguration'))) {
-                call_user_func(array($types[$name], 'setConfiguration'), $this->getConfiguration($name));
-            }
-        }
 
         return array(new PreloadedExtension($types, array()));
-    }
-
-    /**
-     * Get configuration
-     *
-     * @author Vincent Chalamon <vincentchalamon@gmail.com>
-     *
-     * @param string $name Configuration name
-     *
-     * @return array
-     */
-    protected function getConfiguration($name)
-    {
-        $configuration = Yaml::parse(rtrim(__DIR__, '/').'/../../../Resources/config/services.yml');
-
-        return $configuration['parameters'][sprintf('vince.type.%s', $name)];
     }
 }
