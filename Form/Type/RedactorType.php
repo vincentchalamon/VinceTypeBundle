@@ -32,18 +32,6 @@ class RedactorType extends AbstractType
     }
 
     /**
-     * Set configuration
-     *
-     * @author Vincent Chalamon <vincentchalamon@gmail.com>
-     *
-     * @param array $config
-     */
-    public function setConfiguration(array $config)
-    {
-        $this->config = $config;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -78,7 +66,7 @@ class RedactorType extends AbstractType
     {
         return array(
             'toolbar' => array(),
-            'buttons' => array('html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'image', 'video', 'file', 'table', 'link', '|', '|', 'alignment', '|', 'horizontalrule'),
+            'buttons' => array('html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'image', 'video', 'file', 'table', 'link', '|', 'alignment', '|', 'horizontalrule'),
             'buttonsAdd' => array(),
             'formattingTags' => array('p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4'),
             'buttonSource' => true,

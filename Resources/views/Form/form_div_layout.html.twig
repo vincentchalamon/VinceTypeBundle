@@ -7,6 +7,9 @@
     {% spaceless %}
         {% for child in form %}
             {{ form_javascript(child) }}
+            {% if child.vars.compound %}
+                {{ form_javascripts(child) }}
+            {% endif %}
         {% endfor %}
     {% endspaceless %}
 {% endblock form_javascripts %}
