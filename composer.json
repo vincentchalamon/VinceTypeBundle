@@ -3,7 +3,6 @@
     "type": "symfony-bundle",
     "license": "MIT",
     "description": "Form types for Symfony 2.3",
-    "version": "v1.0.0",
     "keywords": ["Form"],
     "homepage": "http://vincentchalamon.github.io/VinceTypeBundle/",
     "autoload": {
