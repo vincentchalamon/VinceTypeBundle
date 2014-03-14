@@ -8,12 +8,10 @@
     "autoload": {
         "psr-0": { "Vince\\Bundle\\TypeBundle": "" }
     },
-    "require-dev": {
-        "symfony/symfony": ">=2.3"
-    },
     "require": {
         "php": ">=5.3.2",
-        "sensio/framework-extra-bundle": "~2.3"
+        "sensio/framework-extra-bundle": "~2.3",
+        "symfony/symfony": ">=2.3"
     },
     "authors": [
         {
