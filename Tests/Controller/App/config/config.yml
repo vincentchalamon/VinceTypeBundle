@@ -1,0 +1,17 @@
+framework:
+    test: ~
+    translator: ~
+    default_locale: fr
+    secret: Hell yeah!
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+    form: ~
+    csrf_protection: ~
+    templating:
+        engines: ['twig']
+    profiler:
+        only_exceptions: false
+    session: ~
+
+parameters:
+    kernel.web_dir: %kernel.root_dir%/web

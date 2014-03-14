@@ -75,14 +75,17 @@ class RedactorControllerTest extends WebTestCase
         $this->assertEquals(405, $client->getResponse()->getStatusCode());
 
         // Get files in path
-        $client->request('GET', '/redactor/list-files/bundles/vincetype');
+        $path = $client->getContainer()->getParameter('kernel.web_dir').$client->getContainer()->getParameter('kernel.uploads_path');
+        copy(__DIR__.'/../../Resources/public/sample.png', $path.'/sample.png');
+        $client->request('GET', '/redactor/list-files/uploads');
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(array((object)array(
-                'thumb'  => '/bundles/vincetype/sample.png',
-                'image'  => '/bundles/vincetype/sample.png',
+                'thumb'  => '/uploads/sample.png',
+                'image'  => '/uploads/sample.png',
                 'title'  => 'sample',
-                'folder' => 'vincetype'
+                'folder' => 'uploads'
             )), json_decode($client->getResponse()->getContent()));
+        unlink($path.'/sample.png');
     }
 
 }

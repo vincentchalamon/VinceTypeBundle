@@ -1,0 +1,3 @@
+VinceTypeBundle:
+    resource: "@VinceTypeBundle/Resources/config/routing.yml"
+    prefix:   /
