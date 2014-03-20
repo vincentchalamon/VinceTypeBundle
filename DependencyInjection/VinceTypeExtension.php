@@ -50,32 +50,31 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
 
         // Configure Assetic if AsseticBundle is activated
         if (isset($bundles['AsseticBundle']) && $container->hasExtension('assetic')) {
-            $root = $container->getParameter('kernel.root_dir').'/../vendor/vince/type-bundle/Vince/Bundle/TypeBundle/Resources/public';
             $container->prependExtensionConfig('assetic', array(
                     'bundles' => array('VinceTypeBundle'),
                     'assets' => array(
                         'vince_type_js' => array(
                             'inputs' => array(
-                                $root.'/datepicker/bootstrap-datepicker.js',
-                                $root.'/redactor/redactor.js',
-                                $root.'/masked/jquery.maskedinput.min.js',
-                                $root.'/token/jquery.tokeninput.js',
-                                $root.'/list/listInput.js'
+                                'bundles/vincetype/datepicker/bootstrap-datepicker.js',
+                                'bundles/vincetype/redactor/redactor.js',
+                                'bundles/vincetype/masked/jquery.maskedinput.min.js',
+                                'bundles/vincetype/token/jquery.tokeninput.js',
+                                'bundles/vincetype/list/listInput.js'
                             ),
                             'filters' => $container->hasParameter('assetic.filter.yui_js.jar') ? array('?yui_js') : array(),
-                            'output' => '/js/vince_type.js'
+                            'output' => 'js/vince_type.js'
                         ),
                         'vince_type_css' => array(
                             'inputs' => array(
-                                $root.'/datepicker/bootstrap.datepicker.min.css',
-                                $root.'/datepicker/datepicker.css',
-                                $root.'/redactor/redactor.css',
-                                $root.'/token/token-input.css',
-                                $root.'/token/token-input-facebook.css',
-                                $root.'/list/listInput.css'
+                                'bundles/vincetype/datepicker/bootstrap.datepicker.min.css',
+                                'bundles/vincetype/datepicker/datepicker.css',
+                                'bundles/vincetype/redactor/redactor.css',
+                                'bundles/vincetype/token/token-input.css',
+                                'bundles/vincetype/token/token-input-facebook.css',
+                                'bundles/vincetype/list/listInput.css'
                             ),
                             'filters' => array_merge(array('cssrewrite'), $container->hasParameter('assetic.filter.yui_css.jar') ? array('?yui_css') : array()),
-                            'output' => '/css/vince_type.css'
+                            'output' => 'css/vince_type.css'
                         )
                     )
                 )
