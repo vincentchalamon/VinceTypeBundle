@@ -6,11 +6,7 @@
 {% block form_javascripts %}
     {% spaceless %}
         {% if form.parent is not defined or not form.parent %}
-            {% javascripts '@vince_type_js' %}
-                <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-            <script type="text/javascript" src="{{ asset('bundles/vincetype/datepicker/langs/bootstrap-datepicker.' ~ locale ~ '.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('bundles/vincetype/redactor/langs/' ~ locale ~ '.js') }}"></script>
+            {{ block('form_root_javascript') }}
         {% endif %}
         {% for child in form %}
             {{ form_javascript(child) }}
@@ -23,15 +19,23 @@
 
 {% block form_javascript %}{% endblock form_javascript %}
 
+{% block form_root_javascript %}
+    {% spaceless %}
+        {% javascripts '@vince_type_js' %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script type="text/javascript" src="{{ asset('bundles/vincetype/datepicker/langs/bootstrap-datepicker.' ~ locale ~ '.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/vincetype/redactor/langs/' ~ locale ~ '.js') }}"></script>
+    {% endspaceless %}
+{% endblock form_root_javascript %}
+
 
 {# Stylesheets #}
 
 {% block form_stylesheets %}
     {% spaceless %}
         {% if form.parent is not defined or not form.parent %}
-            {% stylesheets '@vince_type_css' %}
-                <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
-            {% endstylesheets %}
+            {{ block('form_root_stylesheet') }}
         {% endif %}
         {% for child in form %}
             {{ form_stylesheet(child) }}
@@ -40,6 +44,14 @@
 {% endblock form_stylesheets %}
 
 {% block form_stylesheet %}{% endblock form_stylesheet %}
+
+{% block form_root_stylesheet %}
+    {% spaceless %}
+        {% stylesheets '@vince_type_css' %}
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+        {% endstylesheets %}
+    {% endspaceless %}
+{% endblock form_root_stylesheet %}
 
 
 {# Help #}
