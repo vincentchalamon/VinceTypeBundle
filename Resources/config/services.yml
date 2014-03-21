@@ -35,6 +35,8 @@ services:
         class: Vince\Bundle\TypeBundle\Form\Type\TokenType
         tags:
             - { name: form.type, alias: token }
+        calls:
+            - [ setObjectManager, [ @doctrine.orm.default_entity_manager ] ]
     form.type.list:
         class: Vince\Bundle\TypeBundle\Form\Type\ListType
         tags:

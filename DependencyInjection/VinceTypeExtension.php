@@ -71,7 +71,8 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                                 'bundles/vincetype/redactor/redactor.css',
                                 'bundles/vincetype/token/token-input.css',
                                 'bundles/vincetype/token/token-input-facebook.css',
-                                'bundles/vincetype/list/listInput.css'
+                                'bundles/vincetype/list/listInput.css',
+                                'bundles/vincetype/autocomplete/autocomplete.css'
                             ),
                             'filters' => array_merge(array('cssrewrite'), $container->hasParameter('assetic.filter.yui_css.jar') ? array('?yui_css') : array()),
                             'output' => 'css/vince_type.css'

@@ -19,3 +19,10 @@ token-search:
     requirements:
         _format: json
         _method: POST
+
+autocomplete-search:
+    pattern:  /autocomplete/search
+    defaults: { _controller: VinceTypeBundle:Autocomplete:search }
+    requirements:
+        _format: json
+        _method: POST
