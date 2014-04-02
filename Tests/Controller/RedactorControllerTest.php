@@ -52,11 +52,11 @@ class RedactorControllerTest extends WebTestCase
             )
         );
         $this->assertTrue($client->getResponse()->isSuccessful());
-        $filename = $client->getContainer()->getParameter('kernel.web_dir').$client->getContainer()->getParameter('kernel.uploads_path').'/sample.png';
+        $filename = $client->getContainer()->getParameter('kernel.upload_dir').'/sample.png';
         $this->assertFileExists($filename);
         unlink($filename);
         $this->assertEquals((object)array(
-                'filelink' => $client->getContainer()->getParameter('kernel.uploads_path').'/sample.png',
+                'filelink' => '/uploads/sample.png',
                 'filename' => 'sample'
             ), json_decode($client->getResponse()->getContent()));
     }
@@ -75,7 +75,7 @@ class RedactorControllerTest extends WebTestCase
         $this->assertEquals(405, $client->getResponse()->getStatusCode());
 
         // Get files in path
-        $path = $client->getContainer()->getParameter('kernel.web_dir').$client->getContainer()->getParameter('kernel.uploads_path');
+        $path = $client->getContainer()->getParameter('kernel.upload_dir');
         copy(__DIR__.'/../../Resources/public/sample.png', $path.'/sample.png');
         $client->request('GET', '/redactor/list-files/uploads');
         $this->assertTrue($client->getResponse()->isSuccessful());

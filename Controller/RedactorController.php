@@ -40,15 +40,14 @@ class RedactorController extends Controller
             );
         }
         $file   = $request->files->get('file');
-        $web    = rtrim($this->container->getParameter('kernel.web_dir'), '/');
-        $upload = rtrim($this->container->getParameter('kernel.uploads_path'), '/');
-        if (!is_dir($web.$upload)) {
-            mkdir($web.$upload, 0777, true);
+        $upload = rtrim($this->container->getParameter('kernel.upload_dir'), '/');
+        if (!is_dir($upload)) {
+            mkdir($upload, 0777, true);
         }
-        $file->move(realpath($web.$upload), $file->getClientOriginalName());
+        $file->move(realpath($upload), $file->getClientOriginalName());
 
         return new JsonResponse(array(
-                'filelink' => sprintf('%s/%s', $upload, $file->getClientOriginalName()),
+                'filelink' => sprintf('/%s/%s', pathinfo($upload, PATHINFO_BASENAME), $file->getClientOriginalName()),
                 'filename' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
             )
         );
@@ -65,14 +64,14 @@ class RedactorController extends Controller
      */
     public function listFilesAction($path)
     {
-        $files  = array();
-        $webDir = rtrim($this->container->getParameter('kernel.web_dir'), '/');
+        $files     = array();
+        $uploadDir = rtrim($this->container->getParameter('kernel.upload_dir'), '/');
         if (!substr($path, 0, 1) != '/') {
             $path = sprintf('/%s', $path);
         }
-        if (realpath($webDir.$path)) {
+        if (realpath($uploadDir.$path)) {
             $finder = Finder::create()->files()->name('/\.(?:gif|png|jpg|jpeg)$/i');
-            foreach ($finder->in(realpath($webDir.$path)) as $img) {
+            foreach ($finder->in(realpath($uploadDir.$path)) as $img) {
                 /** @var SplFileInfo $img */
                 $files[] = array(
                     'thumb'  => $path.'/'.$img->getFilename(),

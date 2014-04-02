@@ -1,6 +1,6 @@
 parameters:
     kernel.web_dir: %kernel.root_dir%/../web
-    kernel.uploads_path: /uploads
+    kernel.upload_dir: %kernel.web_dir%/uploads
 
 services:
     # Twig

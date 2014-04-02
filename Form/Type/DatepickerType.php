@@ -95,7 +95,7 @@ class DatepickerType extends AbstractType
             'startView' => 0,
             'minViewMode' => 0,
             'todayBtn' => false,
-            'todayHighlight' => false,
+            'todayHighlight' => true,
             'clearBtn' => false,
             'keyboardNavigation' => true,
             'forceParse' => true,
