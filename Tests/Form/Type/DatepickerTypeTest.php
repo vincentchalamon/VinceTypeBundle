@@ -29,7 +29,8 @@ class DatepickerTypeTest extends TypeTestCase
         $this->assertEquals(date('m/d/Y'), $form->createView()->vars['value']);
         $form->submit(date('m/d/Y', strtotime('yesterday')));
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals(new \DateTime('yesterday'), $form->getData());
+        $this->assertTrue($form->getData() instanceof \DateTime);
+        $this->assertEquals(date('m/d/Y', strtotime('yesterday')), $form->getData()->format('m/d/Y'));
     }
 
     /**
