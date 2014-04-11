@@ -29,14 +29,17 @@ services:
     # Form types
     form.type.redactor:
         class: Vince\Bundle\TypeBundle\Form\Type\RedactorType
+        calls:
+            - [setUploadDirName, [%kernel.web_dir%, %kernel.upload_dir%]]
+            - [setRouter, [@router]]
         tags:
             - { name: form.type, alias: redactor }
-    form.type.token:
-        class: Vince\Bundle\TypeBundle\Form\Type\TokenType
-        tags:
-            - { name: form.type, alias: token }
-        calls:
-            - [ setObjectManager, [ @doctrine.orm.default_entity_manager ] ]
+    #form.type.token:
+        #class: Vince\Bundle\TypeBundle\Form\Type\TokenType
+        #tags:
+            #- { name: form.type, alias: token }
+        #calls:
+            #- [ setObjectManager, [ @doctrine.orm.default_entity_manager ] ]
     form.type.list:
         class: Vince\Bundle\TypeBundle\Form\Type\ListType
         tags:

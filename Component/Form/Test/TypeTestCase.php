@@ -33,7 +33,6 @@ abstract class TypeTestCase extends BaseTypeTestCase
     protected function setUp()
     {
         parent::setUp();
-
         $this->factory = Forms::createFormFactoryBuilder()
             ->addExtensions($this->getExtensions())
             ->addTypeExtensions(array(new HelpTypeExtension(), new LocaleTypeExtension()))

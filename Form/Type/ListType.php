@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Vince\Bundle\TypeBundle\Form\Transformer\ListTransformer;
 
 /**
- * ListType manage array
+ * Form type list
  *
  * @author Vincent Chalamon <vincentchalamon@gmail.com>
  */

@@ -14,6 +14,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Routing\Router;
 
 /**
  * Form type redactor
@@ -24,11 +25,52 @@ class RedactorType extends AbstractType
 {
 
     /**
+     * Upload dir name
+     *
+     * @var string
+     */
+    protected $uploadDir;
+
+    /**
+     * Router
+     *
+     * @var Router
+     */
+    protected $router;
+
+    /**
+     * Set upload dir name
+     *
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @param string $webDir    Path to web dir
+     * @param string $uploadDir Path to upload dir
+     */
+    public function setUploadDirName($webDir, $uploadDir)
+    {
+        $this->uploadDir = str_ireplace($webDir, '', $uploadDir);
+    }
+
+    /**
+     * Set router
+     *
+     * @author Vincent Chalamon <vincentchalamon@gmail.com>
+     *
+     * @param Router $router Router
+     */
+    public function setRouter(Router $router)
+    {
+        $this->router = $router;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['options'] = json_encode(array_intersect_key(array_merge($options, array('imageGetJson' => '/app_dev.php/redactor/list-files/uploads')), array_merge($this->getConfiguration(), array('imageGetJson' => null))));
+        $view->vars['options'] = json_encode(array_merge(array(
+                    'imageGetJson' => $this->router->generate('redactor-list-files', array('path' => $options['path']))
+                ), $options));
     }
 
     /**
@@ -36,7 +78,7 @@ class RedactorType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array_merge($this->getConfiguration(), array('paths' => array('/uploads'))));
+        $resolver->setDefaults(array_merge(array('path' => $this->uploadDir), $this->getConfiguration()));
     }
 
     /**

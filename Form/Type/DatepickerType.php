@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * Description of DatepickerType.php
+ * Form type datepicker
  *
  * @author Vincent Chalamon <vincentchalamon@gmail.com>
  */

@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Description of MaskedType.php
+ * Form type masked
  *
  * @author Vincent Chalamon <vincentchalamon@gmail.com>
  */
@@ -30,7 +30,7 @@ class MaskedType extends AbstractType
     {
         $view->vars['mask'] = $options['mask'];
         unset($options['mask']);
-        $view->vars['options'] = json_encode(array_intersect_key($options, array_merge(array('mask' => null), $this->getConfiguration())));
+        $view->vars['options'] = json_encode($options);
     }
 
     /**
@@ -38,7 +38,8 @@ class MaskedType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setRequired(array('mask'))->setDefaults($this->getConfiguration());
+        $resolver->setRequired(array('mask'))
+                 ->setDefaults(array('placeholder' => '_'));
     }
 
     /**
@@ -55,17 +56,5 @@ class MaskedType extends AbstractType
     public function getParent()
     {
         return 'text';
-    }
-
-    /**
-     * Get configuration
-     *
-     * @author Vincent Chalamon <vincentchalamon@gmail.com>
-     *
-     * @return array
-     */
-    protected function getConfiguration()
-    {
-        return array('placeholder' => '_');
     }
 }

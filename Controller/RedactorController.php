@@ -65,7 +65,7 @@ class RedactorController extends Controller
     public function listFilesAction($path)
     {
         $files     = array();
-        $uploadDir = rtrim($this->container->getParameter('kernel.upload_dir'), '/');
+        $uploadDir = rtrim($this->container->getParameter('kernel.web_dir'), '/');
         if (!substr($path, 0, 1) != '/') {
             $path = sprintf('/%s', $path);
         }
