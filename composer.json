@@ -8,6 +8,9 @@
     "autoload": {
         "psr-0": { "Vince\\Bundle\\TypeBundle": "" }
     },
+    "require-dev": {
+        "satooshi/php-coveralls": "dev-master"
+    },
     "require": {
         "php": ">=5.3.2",
         "sensio/framework-extra-bundle": "~2.3",
