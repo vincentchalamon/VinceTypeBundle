@@ -38,7 +38,7 @@ class ListType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['options'] = json_encode($options);
+        $view->vars['options'] = json_encode(array('separator' => $options['separator']));
     }
 
     /**

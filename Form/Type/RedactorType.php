@@ -68,9 +68,13 @@ class RedactorType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
+        $paths = $options['paths'];
+        unset($options['paths']);
         $view->vars['options'] = json_encode(array_merge(array(
-                    'imageGetJson' => $this->router->generate('redactor-list-files', array('path' => $options['path']))
-                ), $options));
+                    'imageUpload' => $this->router->generate('redactor-upload'),
+                    'fileUpload' => $this->router->generate('redactor-upload'),
+                    'imageGetJson' => $this->router->generate('redactor-list-files', array('paths' => $paths)),
+                ), array_intersect_key($options, $this->getConfiguration())), JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -78,7 +82,7 @@ class RedactorType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array_merge(array('path' => $this->uploadDir), $this->getConfiguration()));
+        $resolver->setDefaults(array_merge(array('paths' => array($this->uploadDir)), $this->getConfiguration()));
     }
 
     /**

@@ -30,7 +30,7 @@ class MaskedType extends AbstractType
     {
         $view->vars['mask'] = $options['mask'];
         unset($options['mask']);
-        $view->vars['options'] = json_encode($options);
+        $view->vars['options'] = json_encode(array('placeholder' => $options['placeholder']));
     }
 
     /**

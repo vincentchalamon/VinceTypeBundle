@@ -6,12 +6,11 @@ redactor-upload:
         _method: POST
 
 redactor-list-files:
-    pattern:  /redactor/list-files/{path}
+    pattern:  /redactor/list-files
     defaults: { _controller: VinceTypeBundle:Redactor:listFiles }
     requirements:
         _format: json
         _method: GET
-        path: "^.+"
 
 token-search:
     pattern:  /token/search

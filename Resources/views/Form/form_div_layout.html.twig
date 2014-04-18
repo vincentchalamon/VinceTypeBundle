@@ -91,9 +91,7 @@
                             });
                         }).slideDown('fast').delay(5000).trigger('close');
                     },
-                    imageUpload: '{{ path('redactor-upload') }}',
-                    fileUpload: '{{ path('redactor-upload') }}',
-                    lang: '{{ app.request.locale }}'
+                    lang: '{{ locale }}'
                 }, {{ options|raw }}));
             });
         </script>
@@ -163,7 +161,7 @@
         <script type="text/javascript">
             $(function () {
                 $('#{{ id }}').addClass('datepicker-field').datepicker($.extend({
-                    language: '{{ app.request.locale|lower }}'
+                    language: '{{ locale|lower }}'
                 }, {{ options|raw }}));
             });
         </script>
@@ -195,7 +193,7 @@
                             return;
                         }
                         $.post('{{ path('autocomplete-search') }}', $.extend({
-                            query: '{{ app.request.locale|lower }}'
+                            query: '{{ locale|lower }}'
                         }, {{ options|raw }}), function (data) {
                             cache[term] = data;
                             response(data);

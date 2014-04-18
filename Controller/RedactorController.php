@@ -10,9 +10,11 @@ namespace Vince\Bundle\TypeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Files features for redactor
@@ -29,7 +31,7 @@ class RedactorController extends Controller
      *
      * @param Request $request
      *
-     * @return JsonResponse
+     * @return JsonResponse|Response
      */
     public function uploadAction(Request $request)
     {
@@ -46,9 +48,11 @@ class RedactorController extends Controller
         }
         $file->move(realpath($upload), $file->getClientOriginalName());
 
-        return new JsonResponse(array(
+        return new Response(json_encode(array(
                 'filelink' => sprintf('/%s/%s', pathinfo($upload, PATHINFO_BASENAME), $file->getClientOriginalName()),
                 'filename' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
+            , JSON_UNESCAPED_SLASHES)), 200, array(
+                'Content-Type' => 'application/json'
             )
         );
     }
@@ -58,30 +62,40 @@ class RedactorController extends Controller
      *
      * @author Vincent Chalamon <vincentchalamon@gmail.com>
      *
-     * @param string $path Path
+     * @param Request $request
      *
-     * @return JsonResponse
+     * @return Response
+     * @throws NotFoundHttpException
      */
-    public function listFilesAction($path)
+    public function listFilesAction(Request $request)
     {
-        $files     = array();
-        $uploadDir = rtrim($this->container->getParameter('kernel.web_dir'), '/');
-        if (!substr($path, 0, 1) != '/') {
-            $path = sprintf('/%s', $path);
+        if (!$request->get('paths')) {
+            throw $this->createNotFoundException();
         }
-        if (realpath($uploadDir.$path)) {
-            $finder = Finder::create()->files()->name('/\.(?:gif|png|jpg|jpeg)$/i');
-            foreach ($finder->in(realpath($uploadDir.$path)) as $img) {
-                /** @var SplFileInfo $img */
-                $files[] = array(
-                    'thumb'  => $path.'/'.$img->getFilename(),
-                    'image'  => $path.'/'.$img->getFilename(),
-                    'title'  => pathinfo($img->getRealPath(), PATHINFO_FILENAME),
-                    'folder' => pathinfo($path, PATHINFO_BASENAME)
-                );
+        $files  = array();
+        $webDir = rtrim(realpath($this->container->getParameter('kernel.web_dir')), '/');
+        foreach ($request->get('paths') as $path) {
+            if (substr($path, 0, 1) != '/') {
+                $path = sprintf('/%s', $path);
+            }
+            if (realpath($webDir.$path)) {
+                $finder = Finder::create()->files()->name('/\.(?:gif|png|jpg|jpeg)$/i');
+                foreach ($finder->in(realpath($webDir.$path)) as $img) {
+                    /** @var SplFileInfo $img */
+                    $folder  = str_ireplace($webDir, '', pathinfo($img->__toString(), PATHINFO_DIRNAME));
+                    $files[] = array(
+                        'thumb'  => $folder.'/'.$img->getFilename(),
+                        'image'  => $folder.'/'.$img->getFilename(),
+                        'title'  => pathinfo($img->__toString(), PATHINFO_FILENAME),
+                        'folder' => str_ireplace('/', ' &gt; ', str_ireplace('\\', '>', trim($folder, '/')))
+                    );
+                }
             }
         }
 
-        return new JsonResponse($files);
+        return new Response(json_encode($files, JSON_UNESCAPED_SLASHES), 200, array(
+                'Content-Type' => 'application/json'
+            )
+        );
     }
 }

@@ -1006,7 +1006,8 @@ body .redactor_toolbar li a.redactor_btn_pre {
     height: 30px;
     width: 98%;
     padding: 0 1%;
-    background-color: rgba(212, 82, 82, 0.7);
+    background-color: rgba(212, 82, 82, 0.8);
+    text-shadow: 1px 1px black;
     color: white;
     font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif !important;
     font-size: 13px;

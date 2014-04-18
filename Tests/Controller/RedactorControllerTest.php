@@ -71,13 +71,17 @@ class RedactorControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Method not allowed
-        $client->request('POST', '/redactor/list-files/bundles/vincetype');
+        $client->request('POST', '/redactor/list-files?paths[]=/uploads');
         $this->assertEquals(405, $client->getResponse()->getStatusCode());
+
+        // Paths required
+        $client->request('GET', '/redactor/list-files');
+        $this->assertTrue($client->getResponse()->isNotFound());
 
         // Get files in path
         $path = $client->getContainer()->getParameter('kernel.upload_dir');
         copy(__DIR__.'/../../Resources/public/sample.png', $path.'/sample.png');
-        $client->request('GET', '/redactor/list-files/uploads');
+        $client->request('GET', '/redactor/list-files?paths[]=/uploads');
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals(array((object)array(
                 'thumb'  => '/uploads/sample.png',
