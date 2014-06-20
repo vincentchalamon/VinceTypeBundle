@@ -54,3 +54,9 @@ services:
             - [setTranslator, [@translator]]
         tags:
             - { name: form.type, alias: datepicker }
+    form.type.document:
+        class: Vince\Bundle\TypeBundle\Form\Type\DocumentType
+        calls:
+            - [setUploadDir, [%kernel.upload_dir%]]
+        tags:
+            - { name: form.type, alias: document }

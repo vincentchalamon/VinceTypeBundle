@@ -176,6 +176,24 @@
 {% endblock datepicker_widget %}
 
 
+{# Document #}
+
+{% block document_widget %}
+    {% spaceless %}
+        {{ block('form_widget_simple') }}
+        {% if filename %}
+            <a href="{{ filename }}" target="_blank">
+                {% if is_image %}
+                    <img src="{{ filename }}" style="max-width:100px;max-height:100px;" />
+                {% else %}
+                    {{ filename }}
+                {% endif %}
+            </a>
+        {% endif %}
+    {% endspaceless %}
+{% endblock document_widget %}
+
+
 {# Autocomplete #}
 {# WORK IN PROGRESS #}
 
