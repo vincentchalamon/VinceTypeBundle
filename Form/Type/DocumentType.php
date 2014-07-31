@@ -26,22 +26,22 @@ class DocumentType extends AbstractType
 {
 
     /**
-     * Upload dir
+     * Web dir
      *
      * @var string
      */
-    protected $uploadDir;
+    protected $webDir;
 
     /**
-     * Set upload dir
+     * Set web dir
      *
      * @author Vincent Chalamon <vincentchalamon@gmail.com>
      *
-     * @param string $uploadDir
+     * @param string $webDir
      */
-    public function setUploadDir($uploadDir)
+    public function setWebDir($webDir)
     {
-        $this->uploadDir = $uploadDir;
+        $this->webDir = $webDir;
     }
 
     /**
@@ -49,7 +49,7 @@ class DocumentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addModelTransformer(new DocumentTransformer($this->uploadDir));
+        $builder->addModelTransformer(new DocumentTransformer($this->webDir));
     }
 
     /**
@@ -57,9 +57,9 @@ class DocumentType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['filename'] = $form->getData();
+        $view->vars['filename'] = pathinfo($form->getData(), PATHINFO_BASENAME);
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $view->vars['is_image'] = in_array(strtolower(finfo_file($finfo, sprintf('%s/%s', $this->uploadDir, pathinfo($form->getData(), PATHINFO_BASENAME)))), array(
+        $view->vars['is_image'] = in_array(strtolower(finfo_file($finfo, sprintf('%s/%s', $this->webDir, $form->getData()))), array(
                 'image/gif',
                 'image/jpeg',
                 'image/pjpeg', // Special for IE

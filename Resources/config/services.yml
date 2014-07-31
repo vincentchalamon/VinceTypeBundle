@@ -57,6 +57,6 @@ services:
     form.type.document:
         class: Vince\Bundle\TypeBundle\Form\Type\DocumentType
         calls:
-            - [setUploadDir, [%kernel.upload_dir%]]
+            - [setWebDir, [%kernel.web_dir%]]
         tags:
             - { name: form.type, alias: document }

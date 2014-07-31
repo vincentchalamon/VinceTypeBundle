@@ -22,18 +22,18 @@ class DocumentTransformer implements DataTransformerInterface
 {
 
     /**
-     * Upload dir
+     * Web dir
      *
      * @var string
      */
-    protected $uploadDir;
+    protected $webDir;
 
     /**
-     * @param string $uploadDir Upload dir
+     * @param string $webDir Web dir
      */
-    public function __construct($uploadDir)
+    public function __construct($webDir)
     {
-        $this->uploadDir = $uploadDir;
+        $this->webDir = $webDir;
     }
 
     /**
@@ -46,7 +46,7 @@ class DocumentTransformer implements DataTransformerInterface
             return null;
         }
 
-        return new UploadedFile(sprintf('%s/%s', $this->uploadDir, pathinfo($value, PATHINFO_BASENAME)), pathinfo($value, PATHINFO_BASENAME));
+        return new UploadedFile(sprintf('%s/%s', $this->webDir, $value), pathinfo($value, PATHINFO_BASENAME));
     }
 
     /**
@@ -61,7 +61,8 @@ class DocumentTransformer implements DataTransformerInterface
         }
 
         // Upload file
-        $value->move($this->uploadDir, $value->getClientOriginalName());
+        // @todo-vince Puts 'uploads' as dynamic parameter
+        $value->move($this->webDir.'/uploads', $value->getClientOriginalName());
 
         return sprintf('/uploads/%s', $value->getClientOriginalName());
     }
