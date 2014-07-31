@@ -15,7 +15,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Vince\Bundle\TypeBundle\Form\Transformer\DocumentTransformer;
 
 /**
  * Form type document
@@ -47,19 +46,11 @@ class DocumentType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->addModelTransformer(new DocumentTransformer($this->webDir));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['filename'] = pathinfo($form->getData(), PATHINFO_BASENAME);
+        $view->vars['filename'] = !$form->getData() ? null : pathinfo($form->getData(), PATHINFO_BASENAME);
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $view->vars['is_image'] = in_array(strtolower(finfo_file($finfo, sprintf('%s/%s', $this->webDir, $form->getData()))), array(
+        $view->vars['is_image'] = !$form->getData() ? false : in_array(strtolower(finfo_file($finfo, sprintf('%s/%s', $this->webDir, $form->getData()))), array(
                 'image/gif',
                 'image/jpeg',
                 'image/pjpeg', // Special for IE
