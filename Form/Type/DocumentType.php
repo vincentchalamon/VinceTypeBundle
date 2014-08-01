@@ -48,17 +48,26 @@ class DocumentType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['filename'] = !$form->getData() ? null : pathinfo($form->getData(), PATHINFO_BASENAME);
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $view->vars['is_image'] = !$form->getData() ? false : in_array(strtolower(finfo_file($finfo, sprintf('%s/%s', $this->webDir, $form->getData()))), array(
-                'image/gif',
-                'image/jpeg',
-                'image/pjpeg', // Special for IE
-                'image/png',
-                'image/x-png' // Special for IE
+        $view->vars['filename'] = null;
+        $view->vars['is_image'] = false;
+        $filename = sprintf('%s/%s', $this->webDir, $form->getData());
+        if (is_file($filename)) {
+            $view->vars['filename'] = pathinfo($form->getData(), PATHINFO_BASENAME);
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            if (in_array(strtolower(finfo_file($finfo, $filename)), array(
+                    'image/gif',
+                    'image/jpeg',
+                    'image/pjpeg', // Special for IE
+                    'image/png',
+                    'image/x-png' // Special for IE
+                )
             )
-        );
-        finfo_close($finfo);
+            ) {
+                $view->vars['is_image'] = true;
+                $view->vars['filename'] = $form->getData();
+            }
+            finfo_close($finfo);
+        }
     }
 
     /**

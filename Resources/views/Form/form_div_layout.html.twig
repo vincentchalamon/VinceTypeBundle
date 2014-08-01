@@ -22,7 +22,7 @@
 {% block form_root_javascript %}
     {% spaceless %}
         {% javascripts '@vince_type_js' %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>
+        <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
         <script type="text/javascript" src="{{ asset('bundles/vincetype/datepicker/langs/bootstrap-datepicker.' ~ locale ~ '.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/vincetype/redactor/langs/' ~ locale ~ '.js') }}"></script>
@@ -51,7 +51,7 @@
 {% block form_root_stylesheet %}
     {% spaceless %}
         {% stylesheets '@vince_type_css' %}
-            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
         {% endstylesheets %}
     {% endspaceless %}
 {% endblock form_root_stylesheet %}
