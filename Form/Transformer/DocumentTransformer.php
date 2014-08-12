@@ -43,13 +43,15 @@ class DocumentTransformer implements DataTransformerInterface
     protected $isString = false;
 
     /**
-     * @param string $webDir Web dir
-     * @param string $destinationDirname Destination dir
+     * @param string  $webDir Web dir
+     * @param string  $destinationDirname Destination dir
+     * @param boolean $manageString Manage document as string instead of UploadedFile
      */
-    public function __construct($webDir, $destinationDirname)
+    public function __construct($webDir, $destinationDirname, $manageString = false)
     {
         $this->webDir = $webDir;
         $this->destinationDirname = $destinationDirname;
+        $this->isString = $manageString;
     }
 
     /**
@@ -63,8 +65,7 @@ class DocumentTransformer implements DataTransformerInterface
         }
 
         // Convert value to UploadedFile
-        if (is_string($value)) {
-            $this->isString = true;
+        if ($this->isString) {
             $value = new UploadedFile(sprintf('%s/%s', $this->webDir, ltrim($value, '/')), pathinfo($value, PATHINFO_BASENAME));
         }
         

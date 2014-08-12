@@ -49,7 +49,7 @@ class DocumentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addModelTransformer(new DocumentTransformer($this->webDir, $options['destination']));
+        $builder->addModelTransformer(new DocumentTransformer($this->webDir, $options['destination'], $options['string']));
     }
 
     /**
@@ -85,7 +85,11 @@ class DocumentType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setOptional(array('filename'))
-                 ->setDefaults(array('destination' => '/uploads'));
+                 ->setDefaults(array(
+                    'destination' => '/uploads',
+                    'string' => false
+                )
+            );
     }
 
     /**
