@@ -15,6 +15,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Vince\Bundle\TypeBundle\Form\Transformer\DocumentTransformer;
 
 /**
  * Form type document
@@ -41,6 +42,14 @@ class DocumentType extends AbstractType
     public function setWebDir($webDir)
     {
         $this->webDir = $webDir;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->addModelTransformer(new DocumentTransformer($this->webDir, $options['destination']));
     }
 
     /**
@@ -75,7 +84,8 @@ class DocumentType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setOptional(array('filename'));
+        $resolver->setOptional(array('filename'))
+                 ->setDefaults(array('destination' => '/uploads'));
     }
 
     /**
