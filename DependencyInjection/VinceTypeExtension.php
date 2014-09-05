@@ -61,8 +61,7 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                                 'bundles/vincetype/token/jquery.tokeninput.js',
                                 'bundles/vincetype/list/listInput.js'
                             ),
-                            'filters' => $container->hasParameter('assetic.filter.yui_js.jar') ? array('?yui_js') : array(),
-                            'output' => 'js/vince_type.js'
+                            'filters' => $container->hasParameter('assetic.filter.yui_js.jar') ? array('?yui_js') : array()
                         ),
                         'vince_type_css' => array(
                             'inputs' => array(
@@ -74,10 +73,17 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                                 'bundles/vincetype/list/listInput.css',
                                 'bundles/vincetype/autocomplete/autocomplete.css'
                             ),
-                            'filters' => array_merge(array('cssrewrite'), $container->hasParameter('assetic.filter.yui_css.jar') ? array('?yui_css') : array()),
-                            'output' => 'css/vince_type.css'
+                            'filters' => array_merge(array('cssrewrite'), $container->hasParameter('assetic.filter.yui_css.jar') ? array('?yui_css') : array())
                         )
                     )
+                )
+            );
+        }
+
+        // Configure FOSJsRouting if FOSJsRoutingBundle is activated
+        if (isset($bundles['FOSJsRoutingBundle']) && $container->hasExtension('fos_js_routing')) {
+            $container->prependExtensionConfig('fos_js_routing', array(
+                    'routes_to_expose' => array('redactor-upload')
                 )
             );
         }
