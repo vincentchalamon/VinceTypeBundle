@@ -49,7 +49,10 @@ class DocumentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addModelTransformer(new DocumentTransformer($this->webDir, $options['destination'], $options['string']));
+        $builder->add('delete', 'checkbox', array('label' => 'Supprimer'))
+                ->add('file', 'file', array('label' => false))
+                ->addViewTransformer(new DocumentTransformer($this->webDir, $options['destination'], $options['string']))
+        ;
     }
 
     /**
@@ -98,13 +101,5 @@ class DocumentType extends AbstractType
     public function getName()
     {
         return 'document';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent()
-    {
-        return 'file';
     }
 }

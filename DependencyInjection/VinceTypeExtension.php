@@ -67,6 +67,7 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                             'inputs' => array(
                                 'bundles/vincetype/datepicker/bootstrap.datepicker.min.css',
                                 'bundles/vincetype/datepicker/datepicker.css',
+                                'bundles/vincetype/document/document.css',
                                 'bundles/vincetype/redactor/redactor.css',
                                 'bundles/vincetype/token/token-input.css',
                                 'bundles/vincetype/token/token-input-facebook.css',

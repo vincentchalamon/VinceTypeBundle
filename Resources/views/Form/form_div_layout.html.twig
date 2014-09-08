@@ -22,7 +22,7 @@
 {% block form_root_javascript %}
     {% spaceless %}
         {% javascripts '@vince_type_js' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
+            <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
         <script type="text/javascript" src="{{ asset('bundles/vincetype/datepicker/langs/bootstrap-datepicker.' ~ locale ~ '.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/vincetype/redactor/langs/' ~ locale ~ '.js') }}"></script>
@@ -51,7 +51,7 @@
 {% block form_root_stylesheet %}
     {% spaceless %}
         {% stylesheets '@vince_type_css' %}
-        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
         {% endstylesheets %}
     {% endspaceless %}
 {% endblock form_root_stylesheet %}
@@ -180,56 +180,23 @@
 
 {% block document_widget %}
     {% spaceless %}
-        {{ block('form_widget_simple') }}
-        {% if filename %}
-            <a href="{{ filename }}" target="_blank">
-                {% if is_image %}
-                    <img src="{{ filename }}" style="max-width:100px;max-height:100px;" />
-                {% else %}
-                    {{ filename }}
-                {% endif %}
-            </a>
-        {% endif %}
+        <div class="document-container">
+            {{ form_widget(form.file) }}
+            {% if filename %}
+                <div class="document-file">
+                    <a href="{{ filename }}" target="_blank">
+                        {% if is_image %}
+                            <img src="{{ filename }}" />
+                        {% else %}
+                            {{ filename }}
+                        {% endif %}
+                    </a>
+                    {% if not required %}
+                        {{ form_widget(form.delete) }}
+                        {{ form_label(form.delete) }}
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
     {% endspaceless %}
 {% endblock document_widget %}
-
-
-{# Autocomplete #}
-{# WORK IN PROGRESS #}
-
-{#% block autocomplete_javascript %}
-    {% spaceless %}
-        <script type="text/javascript">
-            $(function () {
-                var cache = {};
-                $('#{{ id }}').autocomplete($.extend({
-                    source: function (request, response) {
-                        var term = request.term;
-                        if (term in cache) {
-                            response(cache[term]);
-
-                            return;
-                        }
-                        $.post('{{ path('autocomplete-search') }}', $.extend({
-                            query: '{{ locale|lower }}'
-                        }, {{ options|raw }}), function (data) {
-                            cache[term] = data;
-                            response(data);
-                        }, 'json');
-                    },
-                    minLength: 2,
-                    select: function (event, ui) {
-                        $(this).val(ui.item.value).prev(':input:hidden').val(ui.item.id);
-                    }
-                }, {{ options|raw }}));
-            });
-        </script>
-    {% endspaceless %}
-{% endblock autocomplete_javascript %}
-
-{% block autocomplete_widget %}
-    {% spaceless %}
-        {% set type = 'text' %}
-        {{ block('form_widget_simple') }}
-    {% endspaceless %}
-{% endblock datepicker_widget %#}

@@ -1,0 +1,21 @@
+.document-container img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.document-container input, .document-container .document-file {
+    float: left;
+}
+
+.document-container .document-file {
+    margin-left: 5px;
+}
+
+.document-container .document-file a {
+    display: block;
+}
+
+.document-container .document-file .control-label {
+    width: auto;
+    padding: 0 0 0 5px;
+}

@@ -43,15 +43,22 @@ class DocumentTransformer implements DataTransformerInterface
     protected $isString = false;
 
     /**
+     * Original filename
+     *
+     * @var string
+     */
+    protected $originalFilename;
+
+    /**
      * @param string  $webDir Web dir
      * @param string  $destinationDirname Destination dir
      * @param boolean $manageString Manage document as string instead of UploadedFile
      */
     public function __construct($webDir, $destinationDirname, $manageString = false)
     {
-        $this->webDir = $webDir;
+        $this->webDir             = $webDir;
         $this->destinationDirname = $destinationDirname;
-        $this->isString = $manageString;
+        $this->isString           = $manageString;
     }
 
     /**
@@ -68,8 +75,9 @@ class DocumentTransformer implements DataTransformerInterface
         if ($this->isString) {
             $value = new UploadedFile(sprintf('%s/%s', $this->webDir, ltrim($value, '/')), pathinfo($value, PATHINFO_BASENAME));
         }
-        
-        return $value;
+        $this->originalFilename = $this->webDir.$this->destinationDirname.'/'.$value->getClientOriginalName();
+
+        return array('file' => $value);
     }
 
     /**
@@ -77,22 +85,32 @@ class DocumentTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
-        /** @var UploadedFile $value */
         // Fix for Symfony 2.4
         if (null === $value) {
             return null;
         }
 
+        // Delete file
+        if ($value['delete'] && $this->originalFilename) {
+            if (is_file($this->originalFilename)) {
+                unlink($this->originalFilename);
+            }
+
+            return null;
+        }
+
+        // Upload file
+        /** @var UploadedFile $file */
+        $file = $value['file'];
         if ($this->isString) {
-            // Upload file
             if (!is_dir($this->webDir.$this->destinationDirname)) {
                 mkdir($this->webDir.$this->destinationDirname, 0777, true);
             }
-            $value->move($this->webDir.$this->destinationDirname, $value->getClientOriginalName());
+            $file->move($this->webDir.$this->destinationDirname, $file->getClientOriginalName());
 
-            return sprintf($this->destinationDirname.'/%s', $value->getClientOriginalName());
+            return sprintf($this->destinationDirname.'/%s', $file->getClientOriginalName());
         }
 
-        return $value;
+        return $file;
     }
 }
