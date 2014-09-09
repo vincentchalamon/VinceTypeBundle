@@ -102,7 +102,7 @@ class DocumentTransformer implements DataTransformerInterface
         // Upload file
         /** @var UploadedFile $file */
         $file = $value['file'];
-        if ($this->isString) {
+        if ($this->isString && $file) {
             if (!is_dir($this->webDir.$this->destinationDirname)) {
                 mkdir($this->webDir.$this->destinationDirname, 0777, true);
             }
