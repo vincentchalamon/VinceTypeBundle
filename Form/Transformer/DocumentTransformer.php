@@ -106,9 +106,10 @@ class DocumentTransformer implements DataTransformerInterface
             if (!is_dir($this->webDir.$this->destinationDirname)) {
                 mkdir($this->webDir.$this->destinationDirname, 0777, true);
             }
-            $file->move($this->webDir.$this->destinationDirname, $file->getClientOriginalName());
+            $filename = sprintf('%s.%s', md5(time()), $file->getClientOriginalExtension());
+            $file->move($this->webDir.$this->destinationDirname, $filename);
 
-            return sprintf($this->destinationDirname.'/%s', $file->getClientOriginalName());
+            return sprintf($this->destinationDirname.'/%s', $filename);
         }
 
         return $file;
