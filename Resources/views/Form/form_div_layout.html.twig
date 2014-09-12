@@ -243,6 +243,11 @@
                             infowindow.open(map, marker);
                             $('{{ '#'~id }}').val(data.id).trigger('change');
                         });
+                        {% if value %}
+                            if (data.id == {{ value }}) {
+                                new google.maps.event.trigger(marker, 'click');
+                            }
+                        {% endif %}
                         markers.push(marker);
                     });
 
@@ -261,7 +266,7 @@
                     }
 
                     // Cluster markers
-                    var clusterer = new MarkerClusterer(map, markers);
+                    new MarkerClusterer(map, markers);
 
                     // Search autocomplete
                     $('{{ '#'~id~'-search' }}').show().geocomplete().on('geocode:result', function (event, result) {
