@@ -200,3 +200,67 @@
         </div>
     {% endspaceless %}
 {% endblock document_widget %}
+
+
+{# Geolocation #}
+
+{% block geolocation_widget %}
+    {% spaceless %}
+        {{ block('hidden_widget') }}
+        <input type="search" id="{{ id }}-search" class="geolocation-search-field" placeholder="{{ 'geolocation.placeholder'|trans({}, 'Vince') }}" />
+        <div id="{{ id }}-map" class="geolocation-map">
+            <img src="{{ asset('bundles/vincetype/geolocation/loader.gif') }}" />
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block geolocation_javascript %}
+    {% spaceless %}
+        {% javascripts  'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places'
+                        'bundles/vincetype/geolocation/jquery.geocomplete.min.js'
+                        'bundles/vincetype/geolocation/markerclusterer.min.js'
+                        filter='?yui_js' %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script type="text/javascript">
+            $(function () {
+                $.get('{{ path('geolocation-list', {'class': class}) }}', function (datas) {
+                    // Add all markers
+                    var markers = [];
+                    $.each(datas, function (key, data) {
+                        var markerOptions = {
+                            position: new google.maps.LatLng(data.lat, data.lng)
+                        };
+                        {% if icon %}
+                            markerOptions.icon = new google.maps.MarkerImage('{{ asset(icon) }}', null, null, null, new google.maps.Size(34, 45));
+                        {% endif %}
+                        markers.push(new google.maps.Marker(markerOptions));
+                    });
+
+                    // Default center
+                    var map = new google.maps.Map(document.getElementById('{{ id~'-map' }}'), {
+                        center: new google.maps.LatLng({{ lat }}, {{ lng }}),
+                        zoom: {{ zoom }},
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+
+                    // HTML5 localization
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                        });
+                    }
+
+                    // Cluster markers
+                    var clusterer = new MarkerClusterer(map, markers);
+
+                    // Search autocomplete
+                    $('{{ '#'~id~'-search' }}').geocomplete().on('geocode:result', function (event, result) {
+                        // Center map to searched address
+                        map.setCenter(new google.maps.LatLng(result.geometry.location.k, result.geometry.location.B));
+                    });
+                }, 'json');
+            });
+        </script>
+    {% endspaceless %}
+{% endblock %}

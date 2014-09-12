@@ -11,3 +11,6 @@ token:
         noResults: Aucun résultat
         searching: Recherche en cours
         delete: ×
+
+geolocation:
+    placeholder: Nom d'une rue, arrondissement…

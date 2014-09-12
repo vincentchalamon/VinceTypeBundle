@@ -25,3 +25,11 @@ autocomplete-search:
     requirements:
         _format: json
         _method: POST
+
+geolocation-list:
+    pattern:  /geolocation/{class}
+    defaults: { _controller: VinceTypeBundle:Geolocation:list }
+    requirements:
+        _format: json
+        _method: GET
+        class: [A-z]+

@@ -60,3 +60,7 @@ services:
             - [setWebDir, [%kernel.web_dir%]]
         tags:
             - { name: form.type, alias: document }
+    form.type.geolocation:
+        class: Vince\Bundle\TypeBundle\Form\Type\GeolocationType
+        tags:
+            - { name: form.type, alias: geolocation }
