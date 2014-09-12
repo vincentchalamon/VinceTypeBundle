@@ -8,10 +8,10 @@
  */
 namespace Vince\Bundle\TypeBundle\Controller;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * List objects for geolocation
@@ -34,6 +34,10 @@ class GeolocationController extends Controller
     public function listAction(Request $request)
     {
         $objects = $this->get('doctrine.orm.default_entity_manager')->getRepository($request->get('class'))->findAll();
+        // Fix for FOSRestBundle use
+        if ($this->container->has('jms_serializer')) {
+            return new Response($this->get('jms_serializer')->serialize($objects, 'json'));
+        }
 
         return new JsonResponse($objects);
     }

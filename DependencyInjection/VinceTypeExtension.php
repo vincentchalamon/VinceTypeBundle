@@ -59,7 +59,10 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                                 'bundles/vincetype/redactor/redactor.js',
                                 'bundles/vincetype/masked/jquery.maskedinput.min.js',
                                 'bundles/vincetype/token/jquery.tokeninput.js',
-                                'bundles/vincetype/list/listInput.js'
+                                'bundles/vincetype/list/listInput.js',
+                                'http://maps.googleapis.com/maps/api/js',
+                                'bundles/vincetype/geolocation/jquery.geocomplete.min.js',
+                                'bundles/vincetype/geolocation/markerclusterer.min.js'
                             ),
                             'filters' => $container->hasParameter('assetic.filter.yui_js.jar') ? array('?yui_js') : array()
                         ),
@@ -72,7 +75,7 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                                 'bundles/vincetype/token/token-input.css',
                                 'bundles/vincetype/token/token-input-facebook.css',
                                 'bundles/vincetype/list/listInput.css',
-                                'bundles/vincetype/autocomplete/autocomplete.css'
+                                'bundles/vincetype/geolocation/geolocation.css'
                             ),
                             'filters' => array_merge(array('cssrewrite'), $container->hasParameter('assetic.filter.yui_css.jar') ? array('?yui_css') : array())
                         )

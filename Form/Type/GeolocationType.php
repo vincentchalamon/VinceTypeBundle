@@ -28,10 +28,11 @@ class GeolocationType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['icon'] = $options['icon'];
-        $view->vars['zoom'] = $options['zoom'];
-        $view->vars['lat']  = $options['lat'];
-        $view->vars['lng']  = $options['lng'];
+        $view->vars['class'] = $options['class'];
+        $view->vars['icon']  = $options['icon'];
+        $view->vars['zoom']  = $options['zoom'];
+        $view->vars['lat']   = $options['lat'];
+        $view->vars['lng']   = $options['lng'];
     }
 
     /**

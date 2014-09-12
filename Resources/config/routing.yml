@@ -19,17 +19,9 @@ token-search:
         _format: json
         _method: POST
 
-autocomplete-search:
-    pattern:  /autocomplete/search
-    defaults: { _controller: VinceTypeBundle:Autocomplete:search }
-    requirements:
-        _format: json
-        _method: POST
-
 geolocation-list:
     pattern:  /geolocation/{class}
     defaults: { _controller: VinceTypeBundle:Geolocation:list }
     requirements:
         _format: json
         _method: GET
-        class: [A-z]+

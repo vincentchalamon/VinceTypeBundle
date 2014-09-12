@@ -216,14 +216,9 @@
 
 {% block geolocation_javascript %}
     {% spaceless %}
-        {% javascripts  'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places'
-                        'bundles/vincetype/geolocation/jquery.geocomplete.min.js'
-                        'bundles/vincetype/geolocation/markerclusterer.min.js'
-                        filter='?yui_js' %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
         <script type="text/javascript">
             $(function () {
+                var infowindow;
                 $.get('{{ path('geolocation-list', {'class': class}) }}', function (datas) {
                     // Add all markers
                     var markers = [];
@@ -234,7 +229,21 @@
                         {% if icon %}
                             markerOptions.icon = new google.maps.MarkerImage('{{ asset(icon) }}', null, null, null, new google.maps.Size(34, 45));
                         {% endif %}
-                        markers.push(new google.maps.Marker(markerOptions));
+                        var marker = new google.maps.Marker(markerOptions);
+
+                        // Display info window on click + fill in form field
+                        google.maps.event.addListener(marker, 'click', function() {
+                            if (infowindow) {
+                                infowindow.close();
+                            }
+                            infowindow = new google.maps.InfoWindow({
+                                content: '<h4 class="geolocation-info-name">'+data.name+'</h4>'+
+                                         '<p class="geolocation-info-address">'+data.address+',<br />'+data.zipcode+' '+data.city+'</p>'
+                            });
+                            infowindow.open(map, marker);
+                            $('{{ '#'~id }}').val(data.id).trigger('change');
+                        });
+                        markers.push(marker);
                     });
 
                     // Default center
@@ -255,7 +264,7 @@
                     var clusterer = new MarkerClusterer(map, markers);
 
                     // Search autocomplete
-                    $('{{ '#'~id~'-search' }}').geocomplete().on('geocode:result', function (event, result) {
+                    $('{{ '#'~id~'-search' }}').show().geocomplete().on('geocode:result', function (event, result) {
                         // Center map to searched address
                         map.setCenter(new google.maps.LatLng(result.geometry.location.k, result.geometry.location.B));
                     });
