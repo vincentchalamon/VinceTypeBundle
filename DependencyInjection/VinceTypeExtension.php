@@ -60,7 +60,6 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                                 'bundles/vincetype/masked/jquery.maskedinput.min.js',
                                 'bundles/vincetype/token/jquery.tokeninput.js',
                                 'bundles/vincetype/list/listInput.js',
-                                'http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false',
                                 'bundles/vincetype/geolocation/jquery.geocomplete.min.js',
                                 'bundles/vincetype/geolocation/markerclusterer.min.js'
                             ),
