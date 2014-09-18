@@ -51,6 +51,7 @@ class DocumentType extends AbstractType
     {
         $builder->add('delete', 'checkbox', array('label' => 'Supprimer'))
                 ->add('file', 'file', array('label' => false))
+                ->add('value', 'hidden', array('label' => false))
                 ->addViewTransformer(new DocumentTransformer($this->webDir, $options['destination'], $options['string']))
         ;
     }

@@ -70,14 +70,16 @@ class DocumentTransformer implements DataTransformerInterface
         if (null === $value) {
             return null;
         }
+        $options = array('value' => $value);
 
         // Convert value to UploadedFile
         if ($this->isString) {
             $value = new UploadedFile(sprintf('%s/%s', $this->webDir, ltrim($value, '/')), pathinfo($value, PATHINFO_BASENAME));
         }
         $this->originalFilename = $this->webDir.$this->destinationDirname.'/'.$value->getClientOriginalName();
+        $options['file'] = $value;
 
-        return array('file' => $value);
+        return $options;
     }
 
     /**
@@ -102,11 +104,14 @@ class DocumentTransformer implements DataTransformerInterface
         // Upload file
         /** @var UploadedFile $file */
         $file = $value['file'];
-        if ($this->isString && $file) {
+        if (is_null($file)) {
+            return $value['value'];
+        }
+        if ($this->isString) {
             if (!is_dir($this->webDir.$this->destinationDirname)) {
                 mkdir($this->webDir.$this->destinationDirname, 0777, true);
             }
-            $filename = sprintf('%s.%s', md5(time()), $file->getClientOriginalExtension());
+            $filename = sprintf('%s.%s', md5(rand()), $file->getClientOriginalExtension());
             $file->move($this->webDir.$this->destinationDirname, $filename);
 
             return sprintf($this->destinationDirname.'/%s', $filename);
