@@ -36,6 +36,8 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                 array('VinceTypeBundle:Form:form_div_layout.html.twig')
             )
         );
+        $container->setParameter('kernel.web_dir', $container->getParameter('kernel.root_dir').'/../web');
+        $container->setParameter('kernel.upload_dir', $container->getParameter('kernel.web_dir').'/uploads');
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
