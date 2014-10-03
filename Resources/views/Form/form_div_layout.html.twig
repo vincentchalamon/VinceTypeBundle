@@ -183,6 +183,7 @@
     {% spaceless %}
         <div class="document-container">
             {{ form_widget(form.file) }}
+            {{ form_widget(form.value) }}
             {% if filename %}
                 <div class="document-file">
                     <a href="{{ filename }}" target="_blank">
