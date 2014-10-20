@@ -63,10 +63,19 @@
 {% block form_help %}
     {% spaceless %}
         {% if help is defined and help is not null %}
-            <span class="help">{{ help|trans }}</span>
+            <p class="help-block">{{ help|trans({}, translation_domain) }}</p>
         {% endif %}
     {% endspaceless %}
 {% endblock form_help %}
+
+{% block form_row -%}
+    <div>
+        {{ form_label(form) }}
+        {{ form_help(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{%- endblock form_row %}
 
 
 {# Redactor #}
