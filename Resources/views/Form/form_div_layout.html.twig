@@ -247,9 +247,13 @@
                             if (infowindow) {
                                 infowindow.close();
                             }
+                            //replace any ###someField### by the value of the field
+                            infoContent = '{{ infoContent|raw }}';
+                            $(Object.getOwnPropertyNames(data)).each(function(i, el){
+                                infoContent = infoContent.replace('###'+el+'###', data[el]);
+                            });
                             infowindow = new google.maps.InfoWindow({
-                                content: '<h4 class="geolocation-info-name">'+data.name+'</h4>'+
-                                         '<p class="geolocation-info-address">'+data.address+',<br />'+data.zipcode+' '+data.city+'</p>'
+                                content: infoContent
                             });
                             infowindow.open(map, marker);
                             $('{{ '#'~id }}').val(data.id).trigger('change');

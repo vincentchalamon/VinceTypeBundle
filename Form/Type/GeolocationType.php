@@ -33,6 +33,7 @@ class GeolocationType extends AbstractType
         $view->vars['zoom']  = $options['zoom'];
         $view->vars['lat']   = $options['lat'];
         $view->vars['lng']   = $options['lng'];
+        $view->vars['infoContent']   = $options['infoContent'];
     }
 
     /**
@@ -45,7 +46,9 @@ class GeolocationType extends AbstractType
                 'icon' => null,
                 'lat'  => 48.8534100,
                 'lng'  => 2.3488000,
-                'zoom' => 15
+                'zoom' => 15,
+                'infoContent' => '<h4 class="geolocation-info-name">###name###</h4>'
+                    .'<p class="geolocation-info-address">###address###,<br />###zipcode### ###city###</p>'
             )
         );
     }
