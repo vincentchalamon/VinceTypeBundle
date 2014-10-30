@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use JMS\Serializer\SerializationContext;
 
 /**
  * List objects for geolocation
@@ -36,7 +37,7 @@ class GeolocationController extends Controller
         $objects = $this->get('doctrine.orm.default_entity_manager')->getRepository($request->get('class'))->findAll();
         // Fix for FOSRestBundle use
         if ($this->container->has('jms_serializer')) {
-            return new Response($this->get('jms_serializer')->serialize($objects, 'json'));
+            return new Response($this->get('jms_serializer')->serialize($objects, 'json',SerializationContext::create()->setGroups(array('Default'))));
         }
 
         return new JsonResponse($objects);
