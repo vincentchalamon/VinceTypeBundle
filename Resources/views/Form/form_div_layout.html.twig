@@ -5,7 +5,7 @@
 
 {% block form_javascripts %}
     {% spaceless %}
-        {% if form._token is defined %}
+        {% if form._token is defined and (loadJsRoot is not defined or loadJsRoot == true) %}
             {{ block('form_root_javascript') }}
         {% endif %}
         {% for child in form %}
