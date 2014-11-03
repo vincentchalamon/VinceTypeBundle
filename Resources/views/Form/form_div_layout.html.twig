@@ -230,6 +230,21 @@
         <script type="text/javascript">
             $(function () {
                 var infowindow;
+                
+                // Default center
+                var map = new google.maps.Map(document.getElementById('{{ id~'-map' }}'), {
+                    center: new google.maps.LatLng({{ lat }}, {{ lng }}),
+                    zoom: {{ zoom }},
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                // HTML5 localization
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                    });
+                }
+                
                 $.get('{{ path('geolocation-list', {'class': class}) }}', function (datas) {
                     // Add all markers
                     var markers = [];
@@ -256,6 +271,9 @@
                                 content: infoContent
                             });
                             infowindow.open(map, marker);
+                            // Center
+                            map.setCenter(new google.maps.LatLng(data.lat, data.lng));
+                            map.setZoom(10);
                             $('{{ '#'~id }}').val(data.id).trigger('change');
                         });
                         {% if value %}
@@ -265,20 +283,6 @@
                         {% endif %}
                         markers.push(marker);
                     });
-
-                    // Default center
-                    var map = new google.maps.Map(document.getElementById('{{ id~'-map' }}'), {
-                        center: new google.maps.LatLng({{ lat }}, {{ lng }}),
-                        zoom: {{ zoom }},
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    });
-
-                    // HTML5 localization
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function (position) {
-                            map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-                        });
-                    }
 
                     // Cluster markers
                     new MarkerClusterer(map, markers);
