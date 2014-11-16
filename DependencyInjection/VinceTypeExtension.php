@@ -57,28 +57,33 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                     'assets' => array(
                         'vince_type_js' => array(
                             'inputs' => array(
+                                'bundles/vincetype/autosize/jquery.autosize.min.js',
                                 'bundles/vincetype/datepicker/bootstrap-datepicker.js',
-                                'bundles/vincetype/redactor/redactor.js',
-                                'bundles/vincetype/masked/jquery.maskedinput.min.js',
-                                'bundles/vincetype/token/jquery.tokeninput.js',
-                                'bundles/vincetype/list/listInput.js',
+                                'bundles/vincetype/datepicker/langs/*',
+                                'http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false',
                                 'bundles/vincetype/geolocation/jquery.geocomplete.min.js',
-                                'bundles/vincetype/geolocation/markerclusterer.min.js'
-                            ),
-                            'filters' => $container->hasParameter('assetic.filter.yui_js.jar') ? array('?yui_js') : array()
+                                'bundles/vincetype/geolocation/markerclusterer.min.js',
+                                'bundles/vincetype/list/listInput.js',
+                                'bundles/vincetype/masked/jquery.maskedinput.min.js',
+                                'bundles/vincetype/redactor/redactor.js',
+                                'bundles/vincetype/redactor/plugins/*/*.js',
+                                'bundles/vincetype/redactor/langs/*',
+                                'bundles/vincetype/token/jquery.tokeninput.js'
+                            )
                         ),
                         'vince_type_css' => array(
                             'inputs' => array(
                                 'bundles/vincetype/datepicker/bootstrap.datepicker.min.css',
                                 'bundles/vincetype/datepicker/datepicker.css',
                                 'bundles/vincetype/document/document.css',
-                                'bundles/vincetype/redactor/redactor.css',
-                                'bundles/vincetype/token/token-input.css',
-                                'bundles/vincetype/token/token-input-facebook.css',
+                                'bundles/vincetype/geolocation/geolocation.css',
                                 'bundles/vincetype/list/listInput.css',
-                                'bundles/vincetype/geolocation/geolocation.css'
+                                'bundles/vincetype/redactor/redactor.css',
+                                'bundles/vincetype/redactor/plugins/*/*.css',
+                                'bundles/vincetype/token/token-input.css',
+                                'bundles/vincetype/token/token-input-facebook.css'
                             ),
-                            'filters' => array_merge(array('cssrewrite'), $container->hasParameter('assetic.filter.yui_css.jar') ? array('?yui_css') : array())
+                            'filters' => array('cssrewrite')
                         )
                     )
                 )

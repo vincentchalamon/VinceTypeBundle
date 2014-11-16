@@ -21,12 +21,9 @@
 
 {% block form_root_javascript %}
     {% spaceless %}
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
         {% javascripts '@vince_type_js' %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
-        <script type="text/javascript" src="{{ asset('bundles/vincetype/datepicker/langs/bootstrap-datepicker.' ~ locale ~ '.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/vincetype/redactor/langs/' ~ locale ~ '.js') }}"></script>
     {% endspaceless %}
 {% endblock form_root_javascript %}
 

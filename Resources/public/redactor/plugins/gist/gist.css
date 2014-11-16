@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'octicons';
+    src: url(octicons-50f7c541d70d63b9d9e905389ae12f4f9f6e3e632b4c7e0655c9ef955ff0b092.eot?#iefix) format("embedded-opentype"),
+         url(octicons-192e5fbb927be7cdb8bdfa0ecb98d3574bd395e58f9d00e5dcdfce5bc9660ac0.woff) format("woff"),
+         url(octicons-1b8fabf8a76f5d60ef9999b3fcf5e06b9f563148d6215465df8952fdbb9aa3ec.ttf) format("truetype"),
+         url(octicons-7f0c4ab57d5e4fce26440514dd399d7e5c356485584baf201b4ac751055b6e32.svg#octicons) format("svg");
+}
+
+.re-gist {
+    font-family: 'octicons';
+}
+
+.re-gist:before {
+    content: "\f00a";
+}
+
+.github-gist span {
+    display: block !important;
+    color: #999999;
+    font-size: 11px;
+    line-height: 20px;
+    letter-spacing: 0;
+}
+
+.redactor-modal-gist-btn {
+    background-color: #24b561 !important;
+    color: white !important;
+}
+
+.redactor-modal-gist-btn:hover {
+    background-color: #1a8045 !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+}

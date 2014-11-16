@@ -1,11 +1,14 @@
 (function ($) {
 $.Redactor.opts.langs['fr'] = {
 	html: 'Code HTML',
-	video: 'Insérer une vidéo...',
-	image: 'Insérer une image...',
+    video: 'Insérer une vidéo',
+    video_html_code: 'Code d\'intégration du video',
+	gist: 'Insérer un gist',
+    gist_create: 'Créer un Gist',
+	image: 'Insérer une image',
 	table: 'Tableau',
 	link: 'Lien',
-	link_insert: 'Insérer un lien...',
+	link_insert: 'Insérer un lien',
 	link_edit: 'Modifier le lien',
 	unlink: 'Supprimer le lien',
 	formatting: 'Styles',
@@ -29,7 +32,7 @@ $.Redactor.opts.langs['fr'] = {
 	insert: 'Insérer',
 	save: 'Enregistrer',
 	_delete: 'Supprimer',
-	insert_table: 'Insérer un tableau...',
+	insert_table: 'Insérer un tableau',
 	insert_row_above: 'Ajouter une rangée au-dessus',
 	insert_row_below: 'Ajouter une rangée en-dessous',
 	insert_column_left: 'Ajouter une colonne à gauche',
@@ -50,8 +53,7 @@ $.Redactor.opts.langs['fr'] = {
 	text: 'Texte',
 	mailto: 'Courriel',
 	web: 'Adresse URL',
-	video_html_code: 'Code d\'intégration de la vidéo',
-	file: 'Insérer un fichier...',
+	file: 'Insérer un fichier',
 	upload: 'Téléverser',
 	download: 'Télécharger',
 	choose: 'Choisir',
@@ -68,6 +70,7 @@ $.Redactor.opts.langs['fr'] = {
 	underline: 'Souligner',
 	alignment: 'Alignement',
 	filename: 'Nom de fichier (optionnel)',
-	edit: 'Edit'
+	edit: 'Edit',
+	center: 'Center'
 };
 })( jQuery );

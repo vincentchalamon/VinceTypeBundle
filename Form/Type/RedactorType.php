@@ -111,6 +111,7 @@ class RedactorType extends AbstractType
     protected function getConfiguration()
     {
         return array(
+            'minHeight' => 200,
             'toolbar' => array(),
             'buttons' => array('html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'image', 'video', 'file', 'table', 'link', '|', 'alignment', '|', 'horizontalrule'),
             'buttonsAdd' => array(),
@@ -134,7 +135,6 @@ class RedactorType extends AbstractType
             'autosaveInterval' => 60,
             'modalOverlay' => true,
             'tabindex' => false,
-            'minHeight' => 200,
             'observeImages' => true,
             'air' => false,
             'airButtons' => array('formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent'),
@@ -164,7 +164,8 @@ class RedactorType extends AbstractType
             'tidyHtml' => false,
             'imageFloatMargin' => '10px',
             'tabSpaces' => false,
-            'observeLinks' => false
+            'observeLinks' => false,
+            'plugins' => array()
         );
     }
 }
