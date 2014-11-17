@@ -10,7 +10,7 @@
         {% endif %}
         {% for child in form %}
             {{ form_javascript(child) }}
-            {% if child.vars.compound %}
+            {% if child.vars.compound is defined and child.vars.compound %}
                 {{ form_javascripts(child) }}
             {% endif %}
         {% endfor %}
@@ -27,6 +27,8 @@
     {% endspaceless %}
 {% endblock form_root_javascript %}
 
+{% block button_javascript %}{% endblock button_javascript %}
+
 
 {# Stylesheets #}
 
@@ -37,7 +39,7 @@
         {% endif %}
         {% for child in form %}
             {{ form_stylesheet(child) }}
-            {% if child.vars.compound %}
+            {% if child.vars.compound is defined and child.vars.compound %}
                 {{ form_stylesheets(child) }}
             {% endif %}
         {% endfor %}
@@ -54,6 +56,7 @@
     {% endspaceless %}
 {% endblock form_root_stylesheet %}
 
+{% block button_stylesheet %}{% endblock button_stylesheet %}
 
 {# Help #}
 
