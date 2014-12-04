@@ -48,4 +48,4 @@ class LocaleListener
     {
         return $this->locale;
     }
-} 
+}

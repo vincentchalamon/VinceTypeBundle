@@ -50,9 +50,9 @@ class DocumentTransformer implements DataTransformerInterface
     protected $originalFilename;
 
     /**
-     * @param string  $webDir Web dir
+     * @param string  $webDir             Web dir
      * @param string  $destinationDirname Destination dir
-     * @param boolean $manageString Manage document as string instead of UploadedFile
+     * @param boolean $manageString       Manage document as string instead of UploadedFile
      */
     public function __construct($webDir, $destinationDirname, $manageString = false)
     {

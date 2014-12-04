@@ -36,7 +36,7 @@ class RedactorControllerTest extends WebTestCase
         // File required
         $client->request('POST', '/redactor/upload');
         $this->assertTrue($client->getResponse()->isOk());
-        $this->assertEquals((object)array('error' => 'Aucun fichier n\'a été envoyé.'), json_decode($client->getResponse()->getContent()));
+        $this->assertEquals((object) array('error' => 'Aucun fichier n\'a été envoyé.'), json_decode($client->getResponse()->getContent()));
 
         // Upload file
         $filename = $client->getContainer()->getParameter('kernel.cache_dir').'/sample.png';
@@ -55,7 +55,7 @@ class RedactorControllerTest extends WebTestCase
         $filename = $client->getContainer()->getParameter('kernel.upload_dir').'/sample.png';
         $this->assertFileExists($filename);
         unlink($filename);
-        $this->assertEquals((object)array(
+        $this->assertEquals((object) array(
                 'filelink' => '/uploads/sample.png',
                 'filename' => 'sample'
             ), json_decode($client->getResponse()->getContent()));
@@ -83,7 +83,7 @@ class RedactorControllerTest extends WebTestCase
         copy(__DIR__.'/../../Resources/public/sample.png', $path.'/sample.png');
         $client->request('GET', '/redactor/list-files?paths[]=/uploads');
         $this->assertTrue($client->getResponse()->isOk());
-        $this->assertEquals(array((object)array(
+        $this->assertEquals(array((object) array(
                 'thumb'  => '/uploads/sample.png',
                 'image'  => '/uploads/sample.png',
                 'title'  => 'sample',

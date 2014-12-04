@@ -230,7 +230,7 @@
         <script type="text/javascript">
             $(function () {
                 var infowindow;
-                
+
                 // Default center
                 var map = new google.maps.Map(document.getElementById('{{ id~'-map' }}'), {
                     center: new google.maps.LatLng({{ lat }}, {{ lng }}),
@@ -244,7 +244,7 @@
                         map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
                     });
                 }
-                
+
                 $.get('{{ path('geolocation-list', {'class': class}) }}', function (datas) {
                     // Add all markers
                     var markers = [];
