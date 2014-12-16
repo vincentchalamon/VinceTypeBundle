@@ -69,7 +69,7 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                                 'bundles/vincetype/redactor/plugins/*/*.js',
                                 'bundles/vincetype/redactor/langs/*',
                                 'bundles/vincetype/token/jquery.tokeninput.js'
-                            )
+                            ),
                             'output' => 'js/vince_type.min.js'
                         ),
                         'vince_type_css' => array(
