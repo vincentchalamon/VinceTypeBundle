@@ -70,6 +70,7 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                                 'bundles/vincetype/redactor/langs/*',
                                 'bundles/vincetype/token/jquery.tokeninput.js'
                             )
+                            'output' => 'js/vince_type.min.js'
                         ),
                         'vince_type_css' => array(
                             'inputs' => array(
@@ -83,6 +84,7 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                                 'bundles/vincetype/token/token-input.css',
                                 'bundles/vincetype/token/token-input-facebook.css'
                             ),
+                            'output' => 'css/vince_type.min.css',
                             'filters' => array('cssrewrite')
                         )
                     )
