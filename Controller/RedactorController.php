@@ -8,6 +8,7 @@
  */
 namespace Vince\Bundle\TypeBundle\Controller;
 
+use Sonata\CoreBundle\Exception\InvalidParameterException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,7 +79,8 @@ class RedactorController extends Controller
             if (substr($path, 0, 1) != '/') {
                 $path = sprintf('/%s', $path);
             }
-            if (realpath($webDir.$path)) {
+            $realpath = realpath($webDir.$path);
+            if ($realpath && strpos($realpath, $webDir) === 0) {
                 $finder = Finder::create()->files()->name('/\.(?:gif|png|jpg|jpeg)$/i');
                 foreach ($finder->in(realpath($webDir.$path)) as $img) {
                     /** @var SplFileInfo $img */
@@ -90,6 +92,8 @@ class RedactorController extends Controller
                         'folder' => str_ireplace('/', ' &gt; ', str_ireplace('\\', '>', trim($folder, '/')))
                     );
                 }
+            } else {
+                throw new InvalidParameterException('The provided path is either invalid or outside of the public directory. Maybe you forgot to set the "kernel.web_dir" parameter.');
             }
         }
 
