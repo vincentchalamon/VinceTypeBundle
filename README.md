@@ -8,3 +8,4 @@ VinceTypeBundle
 [![Coverage Status](https://coveralls.io/repos/vincentchalamon/VinceTypeBundle/badge.png)](https://coveralls.io/r/vincentchalamon/VinceTypeBundle)
 
 Form types for Symfony 2.5
+

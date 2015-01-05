@@ -8,13 +8,10 @@
  */
 namespace Vince\Bundle\TypeBundle\Controller;
 
-use Sonata\CoreBundle\Exception\InvalidParameterException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -41,9 +38,9 @@ class RedactorController extends Controller
 
         return new Response(json_encode(array(
             'filelink' => $filename,
-            'filename' => pathinfo($filename, PATHINFO_FILENAME)
+            'filename' => pathinfo($filename, PATHINFO_FILENAME),
             ), JSON_UNESCAPED_SLASHES), 200, array(
-                'Content-Type' => 'application/json'
+                'Content-Type' => 'application/json',
             )
         );
     }

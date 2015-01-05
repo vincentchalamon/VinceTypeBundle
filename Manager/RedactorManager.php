@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 namespace Vince\Bundle\TypeBundle\Manager;
+
 use Symfony\Component\Finder\Finder;
 use Sonata\CoreBundle\Exception\InvalidParameterException;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class RedactorManager
 {
-
     /**
      * Web dir
      *
@@ -109,7 +109,7 @@ class RedactorManager
      * List files in a list of paths
      *
      * @author Vincent Chalamon <vincentchalamon@gmail.com>
-     * @param array $paths List of paths to explore
+     * @param  array $paths List of paths to explore
      * @return array
      */
     public function listFiles(array $paths)
