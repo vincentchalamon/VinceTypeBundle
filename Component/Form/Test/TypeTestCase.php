@@ -18,7 +18,6 @@ use Vince\Bundle\TypeBundle\Form\Type\DocumentType;
 use Vince\Bundle\TypeBundle\Form\Type\ListType;
 use Vince\Bundle\TypeBundle\Form\Type\MaskedType;
 use Vince\Bundle\TypeBundle\Form\Type\RedactorType;
-use Vince\Bundle\TypeBundle\Form\Type\TokenType;
 
 /**
  * Add features to form tests
@@ -50,7 +49,6 @@ abstract class TypeTestCase extends BaseTypeTestCase
             'list'       => new ListType(),
             'masked'     => new MaskedType(),
             'redactor'   => new RedactorType(),
-            'token'      => new TokenType(),
         );
 
         return array(new PreloadedExtension($types, array()));

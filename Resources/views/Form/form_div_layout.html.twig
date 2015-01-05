@@ -122,29 +122,6 @@
 {% endblock masked_javascript %}
 
 
-{# Token #}
-
-{% block token_javascript %}
-    {% spaceless %}
-        <script type="text/javascript">
-            $(function () {
-                $('#{{ id }}').tokenInput('{{ path('token-search') }}', $.extend({
-                    method: 'POST',
-                    queryParam: 'query',
-                    queryParams: {{ queryParams|raw }},
-                    hintText: '{{ 'token.text.hint'|trans({}, 'Vince') }}',
-                    noResultsText: '{{ 'token.text.noResults'|trans({}, 'Vince') }}',
-                    searchingText: '{{ 'token.text.searching'|trans({}, 'Vince') }}',
-                    deleteText: '{{ 'token.text.delete'|trans({}, 'Vince') }}',
-                    theme: 'facebook',
-                    prePopulate: {{ value|raw }}
-                }, {{ options|raw }}));
-            });
-        </script>
-    {% endspaceless %}
-{% endblock token_javascript %}
-
-
 {# List #}
 
 {% block list_javascript %}

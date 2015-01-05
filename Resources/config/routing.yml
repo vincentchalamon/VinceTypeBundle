@@ -12,13 +12,6 @@ redactor-list-files:
         _format: json
         _method: GET
 
-token-search:
-    pattern:  /token/search
-    defaults: { _controller: VinceTypeBundle:Token:search }
-    requirements:
-        _format: json
-        _method: POST
-
 geolocation-list:
     pattern:  /geolocation/{class}
     defaults: { _controller: VinceTypeBundle:Geolocation:list }
