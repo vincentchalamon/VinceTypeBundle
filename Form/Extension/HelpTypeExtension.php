@@ -22,7 +22,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class HelpTypeExtension extends AbstractTypeExtension
 {
-
     /**
      * {@inheritdoc}
      */

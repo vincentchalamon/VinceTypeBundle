@@ -17,7 +17,6 @@ namespace Vince\Bundle\TypeBundle\Twig\Extension;
  */
 class FormExtension extends \Twig_Extension
 {
-
     /**
      * {@inheritdoc}
      */
@@ -28,7 +27,7 @@ class FormExtension extends \Twig_Extension
             'form_stylesheet'  => new \Twig_Function_Node('Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode', array('is_safe' => array('html'))),
             'form_javascripts' => new \Twig_Function_Node('Symfony\Bridge\Twig\Node\RenderBlockNode', array('is_safe' => array('html'))),
             'form_stylesheets' => new \Twig_Function_Node('Symfony\Bridge\Twig\Node\RenderBlockNode', array('is_safe' => array('html'))),
-            'form_help'        => new \Twig_Function_Node('Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode', array('is_safe' => array('html')))
+            'form_help'        => new \Twig_Function_Node('Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode', array('is_safe' => array('html'))),
         );
     }
 

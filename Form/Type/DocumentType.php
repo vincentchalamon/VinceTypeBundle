@@ -24,7 +24,6 @@ use Vince\Bundle\TypeBundle\Form\Transformer\DocumentTransformer;
  */
 class DocumentType extends AbstractType
 {
-
     /**
      * Web dir
      *
@@ -72,7 +71,7 @@ class DocumentType extends AbstractType
                     'image/jpeg',
                     'image/pjpeg', // Special for IE
                     'image/png',
-                    'image/x-png' // Special for IE
+                    'image/x-png', // Special for IE
                 )
             )
             ) {
@@ -91,7 +90,7 @@ class DocumentType extends AbstractType
         $resolver->setOptional(array('filename'))
                  ->setDefaults(array(
                     'destination' => '/uploads',
-                    'string' => false
+                    'string' => false,
                 )
             );
     }

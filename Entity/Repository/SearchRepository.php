@@ -19,7 +19,6 @@ use Doctrine\ORM\EntityRepository;
  */
 class SearchRepository extends EntityRepository
 {
-
     /**
      * Search objects for inputToken
      *

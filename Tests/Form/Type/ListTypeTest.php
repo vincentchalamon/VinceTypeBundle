@@ -17,7 +17,6 @@ use Vince\Bundle\TypeBundle\Component\Form\Test\TypeTestCase;
  */
 class ListTypeTest extends TypeTestCase
 {
-
     /**
      * Test submit valid data
      *

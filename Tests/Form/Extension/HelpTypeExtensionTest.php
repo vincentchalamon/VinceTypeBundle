@@ -17,7 +17,6 @@ use Vince\Bundle\TypeBundle\Component\Form\Test\TypeTestCase;
  */
 class HelpTypeExtensionTest extends TypeTestCase
 {
-
     public function testInjectOption()
     {
         $form = $this->factory->create('text', null, array('help' => 'Lorem ipsum'));

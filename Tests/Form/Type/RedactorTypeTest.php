@@ -19,7 +19,6 @@ use Vince\Bundle\TypeBundle\Form\Type\RedactorType;
  */
 class RedactorTypeTest extends TypeTestCase
 {
-
     /**
      * Test submit valid data
      *

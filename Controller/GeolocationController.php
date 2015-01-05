@@ -21,7 +21,6 @@ use JMS\Serializer\SerializationContext;
  */
 class GeolocationController extends Controller
 {
-
     /**
      * List objects for geolocation
      *
@@ -37,7 +36,7 @@ class GeolocationController extends Controller
         $objects = $this->get('doctrine.orm.default_entity_manager')->getRepository($request->get('class'))->findAll();
         // Fix for FOSRestBundle use
         if ($this->container->has('jms_serializer')) {
-            return new Response($this->get('jms_serializer')->serialize($objects, 'json',SerializationContext::create()->setGroups(array('Default'))));
+            return new Response($this->get('jms_serializer')->serialize($objects, 'json', SerializationContext::create()->setGroups(array('Default'))));
         }
 
         return new JsonResponse($objects);

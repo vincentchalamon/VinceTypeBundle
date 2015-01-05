@@ -23,7 +23,6 @@ use Symfony\Component\Routing\Router;
  */
 class RedactorType extends AbstractType
 {
-
     /**
      * Upload dir name
      *
@@ -165,7 +164,7 @@ class RedactorType extends AbstractType
             'imageFloatMargin' => '10px',
             'tabSpaces' => false,
             'observeLinks' => false,
-            'plugins' => array()
+            'plugins' => array(),
         );
     }
 }

@@ -22,7 +22,6 @@ use Vince\Bundle\TypeBundle\Listener\LocaleListener;
  */
 class LocaleTypeExtension extends AbstractTypeExtension
 {
-
     /**
      * Locale
      *

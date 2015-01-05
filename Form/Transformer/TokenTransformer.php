@@ -22,7 +22,6 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 class TokenTransformer implements DataTransformerInterface
 {
-
     /**
      * ObjectManager
      *
@@ -90,7 +89,7 @@ class TokenTransformer implements DataTransformerInterface
     {
         // Fix for Symfony 2.4
         if (null === $value) {
-            return null;
+            return;
         }
 
         /** @var Collection $value */

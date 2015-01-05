@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class TokenController extends Controller
 {
-
     /**
      * Search results for token completion
      *
@@ -58,7 +57,7 @@ class TokenController extends Controller
         foreach ($results as $result) {
             $tokens[] = array(
                 'id'   => call_user_func(array($result, $request->get('identifierMethod'))),
-                'name' => call_user_func(array($result, $request->get('renderMethod')))
+                'name' => call_user_func(array($result, $request->get('renderMethod'))),
             );
         }
 

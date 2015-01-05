@@ -27,7 +27,6 @@ use Vince\Bundle\TypeBundle\Form\Type\TokenType;
  */
 abstract class TypeTestCase extends BaseTypeTestCase
 {
-
     /**
      * {@inheritdoc}
      */
@@ -51,7 +50,7 @@ abstract class TypeTestCase extends BaseTypeTestCase
             'list'       => new ListType(),
             'masked'     => new MaskedType(),
             'redactor'   => new RedactorType(),
-            'token'      => new TokenType()
+            'token'      => new TokenType(),
         );
 
         return array(new PreloadedExtension($types, array()));

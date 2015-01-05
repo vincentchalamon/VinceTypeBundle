@@ -24,7 +24,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class RedactorController extends Controller
 {
-
     /**
      * Upload file to user public directory
      *
@@ -38,7 +37,7 @@ class RedactorController extends Controller
     {
         if (!$request->files->has('file')) {
             return new JsonResponse(array(
-                    'error' => $this->get('translator')->trans('redactor.messages.fileUploadError', array(), 'Vince')
+                    'error' => $this->get('translator')->trans('redactor.messages.fileUploadError', array(), 'Vince'),
                 )
             );
         }
@@ -51,9 +50,8 @@ class RedactorController extends Controller
 
         return new Response(json_encode(array(
                 'filelink' => sprintf('/%s/%s', pathinfo($upload, PATHINFO_BASENAME), $file->getClientOriginalName()),
-                'filename' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
-            , JSON_UNESCAPED_SLASHES)), 200, array(
-                'Content-Type' => 'application/json'
+                'filename' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME), JSON_UNESCAPED_SLASHES, )), 200, array(
+                'Content-Type' => 'application/json',
             )
         );
     }
@@ -89,7 +87,7 @@ class RedactorController extends Controller
                         'thumb'  => $folder.'/'.$img->getFilename(),
                         'image'  => $folder.'/'.$img->getFilename(),
                         'title'  => pathinfo($img->__toString(), PATHINFO_FILENAME),
-                        'folder' => str_ireplace('/', ' &gt; ', str_ireplace('\\', '>', trim($folder, '/')))
+                        'folder' => str_ireplace('/', ' &gt; ', str_ireplace('\\', '>', trim($folder, '/'))),
                     );
                 }
             } else {
@@ -98,7 +96,7 @@ class RedactorController extends Controller
         }
 
         return new Response(json_encode($files, JSON_UNESCAPED_SLASHES), 200, array(
-                'Content-Type' => 'application/json'
+                'Content-Type' => 'application/json',
             )
         );
     }

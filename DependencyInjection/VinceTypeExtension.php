@@ -68,9 +68,9 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                                 'bundles/vincetype/redactor/redactor.js',
                                 'bundles/vincetype/redactor/plugins/*/*.js',
                                 'bundles/vincetype/redactor/langs/*',
-                                'bundles/vincetype/token/jquery.tokeninput.js'
+                                'bundles/vincetype/token/jquery.tokeninput.js',
                             ),
-                            'output' => 'js/vince_type.min.js'
+                            'output' => 'js/vince_type.min.js',
                         ),
                         'vince_type_css' => array(
                             'inputs' => array(
@@ -82,12 +82,12 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                                 'bundles/vincetype/redactor/redactor.css',
                                 'bundles/vincetype/redactor/plugins/*/*.css',
                                 'bundles/vincetype/token/token-input.css',
-                                'bundles/vincetype/token/token-input-facebook.css'
+                                'bundles/vincetype/token/token-input-facebook.css',
                             ),
                             'output' => 'css/vince_type.min.css',
-                            'filters' => array('cssrewrite')
-                        )
-                    )
+                            'filters' => array('cssrewrite'),
+                        ),
+                    ),
                 )
             );
         }
@@ -95,7 +95,7 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
         // Configure FOSJsRouting if FOSJsRoutingBundle is activated
         if (isset($bundles['FOSJsRoutingBundle']) && $container->hasExtension('fos_js_routing')) {
             $container->prependExtensionConfig('fos_js_routing', array(
-                    'routes_to_expose' => array('redactor-upload')
+                    'routes_to_expose' => array('redactor-upload'),
                 )
             );
         }

@@ -1,6 +1,6 @@
 services:
     # Twig
-    twig.extension.vince.form:
+    vince_type.twig.extension:
         class: Vince\Bundle\TypeBundle\Twig\Extension\FormExtension
         tags:
             - { name: twig.extension }

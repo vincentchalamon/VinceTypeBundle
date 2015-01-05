@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class DocumentTransformer implements DataTransformerInterface
 {
-
     /**
      * Web dir
      *
@@ -68,7 +67,7 @@ class DocumentTransformer implements DataTransformerInterface
     {
         // Fix for Symfony 2.4
         if (null === $value) {
-            return null;
+            return;
         }
         $options = array('value' => $value);
 
@@ -89,7 +88,7 @@ class DocumentTransformer implements DataTransformerInterface
     {
         // Fix for Symfony 2.4
         if (null === $value) {
-            return null;
+            return;
         }
 
         // Delete file
@@ -98,7 +97,7 @@ class DocumentTransformer implements DataTransformerInterface
                 unlink($this->originalFilename);
             }
 
-            return null;
+            return;
         }
 
         // Upload file

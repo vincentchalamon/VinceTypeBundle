@@ -25,7 +25,6 @@ use Vince\Bundle\TypeBundle\Form\Transformer\TokenTransformer;
  */
 class TokenType extends AbstractType
 {
-
     /**
      * Entity manager
      *
@@ -63,7 +62,7 @@ class TokenType extends AbstractType
                 'class' => $options['class'],
                 'renderMethod' => $options['renderMethod'],
                 'identifierMethod' => $options['identifierMethod'],
-                'searchMethod' => $options['searchMethod']
+                'searchMethod' => $options['searchMethod'],
             )
         );
         unset($options['class'], $options['renderMethod'], $options['identifierMethod'], $options['searchMethod']);
@@ -115,7 +114,7 @@ class TokenType extends AbstractType
             'resultsLimit' => null,
             'tokenLimit' => null,
             'tokenDelimiter' => ',',
-            'preventDuplicates' => true
+            'preventDuplicates' => true,
         );
     }
 }

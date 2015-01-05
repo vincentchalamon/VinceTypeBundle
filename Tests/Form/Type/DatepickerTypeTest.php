@@ -17,7 +17,6 @@ use Vince\Bundle\TypeBundle\Component\Form\Test\TypeTestCase;
  */
 class DatepickerTypeTest extends TypeTestCase
 {
-
     /**
      * Test submit valid data
      *

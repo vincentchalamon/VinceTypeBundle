@@ -24,7 +24,6 @@ use Vince\Bundle\TypeBundle\Form\Transformer\ListTransformer;
  */
 class ListType extends AbstractType
 {
-
     /**
      * {@inheritdoc}
      */

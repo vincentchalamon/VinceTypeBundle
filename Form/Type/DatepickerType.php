@@ -23,7 +23,6 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class DatepickerType extends AbstractType
 {
-
     /**
      * Format
      *
@@ -58,7 +57,7 @@ class DatepickerType extends AbstractType
     {
         $resolver->setDefaults(array_merge(array(
                     'widget' => 'single_text',
-                    'format' => $this->format
+                    'format' => $this->format,
                 ), $this->getConfiguration()));
     }
 
@@ -99,7 +98,7 @@ class DatepickerType extends AbstractType
             'clearBtn' => false,
             'keyboardNavigation' => true,
             'forceParse' => true,
-            'orientation' => 'auto'
+            'orientation' => 'auto',
         );
     }
 }

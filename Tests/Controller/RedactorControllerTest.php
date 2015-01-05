@@ -19,7 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class RedactorControllerTest extends WebTestCase
 {
-
     /**
      * Test upload
      *
@@ -47,8 +46,8 @@ class RedactorControllerTest extends WebTestCase
                     'name' => 'sample.png',
                     'type' => 'image/png',
                     'size' => 123,
-                    'error' => UPLOAD_ERR_OK
-                )
+                    'error' => UPLOAD_ERR_OK,
+                ),
             )
         );
         $this->assertTrue($client->getResponse()->isOk());
@@ -57,7 +56,7 @@ class RedactorControllerTest extends WebTestCase
         unlink($filename);
         $this->assertEquals((object) array(
                 'filelink' => '/uploads/sample.png',
-                'filename' => 'sample'
+                'filename' => 'sample',
             ), json_decode($client->getResponse()->getContent()));
     }
 
@@ -87,9 +86,8 @@ class RedactorControllerTest extends WebTestCase
                 'thumb'  => '/uploads/sample.png',
                 'image'  => '/uploads/sample.png',
                 'title'  => 'sample',
-                'folder' => 'uploads'
+                'folder' => 'uploads',
             )), json_decode($client->getResponse()->getContent()));
         unlink($path.'/sample.png');
     }
-
 }

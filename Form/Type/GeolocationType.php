@@ -22,7 +22,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class GeolocationType extends AbstractType
 {
-
     /**
      * {@inheritdoc}
      */
@@ -48,7 +47,7 @@ class GeolocationType extends AbstractType
                 'lng'  => 2.3488000,
                 'zoom' => 15,
                 'infoContent' => '<h4 class="geolocation-info-name">###name###</h4>'
-                    .'<p class="geolocation-info-address">###address###,<br />###zipcode### ###city###</p>'
+                    .'<p class="geolocation-info-address">###address###,<br />###zipcode### ###city###</p>',
             )
         );
     }

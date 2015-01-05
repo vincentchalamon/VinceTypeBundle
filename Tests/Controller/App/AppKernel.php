@@ -16,7 +16,6 @@ use Symfony\Component\Config\Loader\LoaderInterface;
  */
 class AppKernel extends Kernel
 {
-
     /**
      * {@inheritdoc}
      */
@@ -28,7 +27,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
-            new Vince\Bundle\TypeBundle\VinceTypeBundle()
+            new Vince\Bundle\TypeBundle\VinceTypeBundle(),
         );
 
         return $bundles;
