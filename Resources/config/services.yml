@@ -2,6 +2,7 @@ services:
     # Manager
     vince_type.manager.redactor:
         class: Vince\Bundle\TypeBundle\Manager\RedactorManager
+        scope: request
         calls:
             - [ setWebDir, [ %kernel.web_dir% ] ]
             - [ setUploadDir, [ %kernel.upload_dir% ] ]
