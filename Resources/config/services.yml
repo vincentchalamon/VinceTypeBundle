@@ -1,4 +1,12 @@
 services:
+    # Manager
+    vince_type.manager.redactor:
+        class: Vince\Bundle\TypeBundle\Manager\RedactorManager
+        calls:
+            - [ setWebDir, [ %kernel.web_dir% ] ]
+            - [ setUploadDir, [ %kernel.upload_dir% ] ]
+            - [ setRequest, [ @request ] ]
+
     # Twig
     vince_type.twig.extension:
         class: Vince\Bundle\TypeBundle\Twig\Extension\FormExtension
@@ -10,13 +18,15 @@ services:
         class: Vince\Bundle\TypeBundle\Listener\LocaleListener
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
     form.type_extension.locale:
         class: Vince\Bundle\TypeBundle\Form\Extension\LocaleTypeExtension
         scope: request
         calls:
-            - [setLocale, [@form.type_extension.locale_listener]]
+            - [ setLocale, [ @form.type_extension.locale_listener ] ]
         tags:
             - { name: form.type_extension, alias: form }
+
     form.type_extension.help:
         class: Vince\Bundle\TypeBundle\Form\Extension\HelpTypeExtension
         tags:
@@ -26,30 +36,35 @@ services:
     form.type.redactor:
         class: Vince\Bundle\TypeBundle\Form\Type\RedactorType
         calls:
-            - [setUploadDirName, [%kernel.web_dir%, %kernel.upload_dir%]]
-            - [setRouter, [@router]]
+            - [ setUploadDirName, [ %kernel.web_dir%, %kernel.upload_dir% ] ]
+            - [ setRouter, [ @router ] ]
         tags:
             - { name: form.type, alias: redactor }
+
     form.type.list:
         class: Vince\Bundle\TypeBundle\Form\Type\ListType
         tags:
             - { name: form.type, alias: list }
+
     form.type.masked:
         class: Vince\Bundle\TypeBundle\Form\Type\MaskedType
         tags:
             - { name: form.type, alias: masked }
+
     form.type.datepicker:
         class: Vince\Bundle\TypeBundle\Form\Type\DatepickerType
         calls:
-            - [setTranslator, [@translator]]
+            - [ setTranslator, [ @translator ] ]
         tags:
             - { name: form.type, alias: datepicker }
+
     form.type.document:
         class: Vince\Bundle\TypeBundle\Form\Type\DocumentType
         calls:
-            - [setWebDir, [%kernel.web_dir%]]
+            - [ setWebDir, [ %kernel.web_dir% ] ]
         tags:
             - { name: form.type, alias: document }
+
     form.type.geolocation:
         class: Vince\Bundle\TypeBundle\Form\Type\GeolocationType
         tags:

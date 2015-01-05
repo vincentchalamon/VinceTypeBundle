@@ -28,30 +28,22 @@ class RedactorController extends Controller
      * Upload file to user public directory
      *
      * @author Vincent Chalamon <vincentchalamon@gmail.com>
-     *
-     * @param Request $request
-     *
      * @return JsonResponse|Response
      */
-    public function uploadAction(Request $request)
+    public function uploadAction()
     {
-        if (!$request->files->has('file')) {
+        if (!$filename = $this->get('vince_type.manager.redactor')->uploadFile()) {
             return new JsonResponse(array(
                     'error' => $this->get('translator')->trans('redactor.messages.fileUploadError', array(), 'Vince'),
                 )
             );
         }
-        $file   = $request->files->get('file');
-        $upload = rtrim($this->container->getParameter('kernel.upload_dir'), '/');
-        if (!is_dir($upload)) {
-            mkdir($upload, 0777, true);
-        }
-        $file->move(realpath($upload), $file->getClientOriginalName());
 
         return new Response(json_encode(array(
-                'filelink' => sprintf('/%s/%s', pathinfo($upload, PATHINFO_BASENAME), $file->getClientOriginalName()),
-                'filename' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME), JSON_UNESCAPED_SLASHES, )), 200, array(
-                'Content-Type' => 'application/json',
+            'filelink' => $filename,
+            'filename' => pathinfo($filename, PATHINFO_FILENAME)
+            ), JSON_UNESCAPED_SLASHES), 200, array(
+                'Content-Type' => 'application/json'
             )
         );
     }
@@ -71,29 +63,7 @@ class RedactorController extends Controller
         if (!$request->get('paths')) {
             throw $this->createNotFoundException();
         }
-        $files  = array();
-        $webDir = rtrim(realpath($this->container->getParameter('kernel.web_dir')), '/');
-        foreach ($request->get('paths') as $path) {
-            if (substr($path, 0, 1) != '/') {
-                $path = sprintf('/%s', $path);
-            }
-            $realpath = realpath($webDir.$path);
-            if ($realpath && strpos($realpath, $webDir) === 0) {
-                $finder = Finder::create()->files()->name('/\.(?:gif|png|jpg|jpeg)$/i');
-                foreach ($finder->in(realpath($webDir.$path)) as $img) {
-                    /** @var SplFileInfo $img */
-                    $folder  = str_ireplace($webDir, '', pathinfo($img->__toString(), PATHINFO_DIRNAME));
-                    $files[] = array(
-                        'thumb'  => $folder.'/'.$img->getFilename(),
-                        'image'  => $folder.'/'.$img->getFilename(),
-                        'title'  => pathinfo($img->__toString(), PATHINFO_FILENAME),
-                        'folder' => str_ireplace('/', ' &gt; ', str_ireplace('\\', '>', trim($folder, '/'))),
-                    );
-                }
-            } else {
-                throw new InvalidParameterException('The provided path is either invalid or outside of the public directory. Maybe you forgot to set the "kernel.web_dir" parameter.');
-            }
-        }
+        $files = $this->get('vince_type.manager.redactor')->listFiles($request->get('paths'));
 
         return new Response(json_encode($files, JSON_UNESCAPED_SLASHES), 200, array(
                 'Content-Type' => 'application/json',
