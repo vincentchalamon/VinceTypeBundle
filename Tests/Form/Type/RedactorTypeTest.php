@@ -40,10 +40,9 @@ class RedactorTypeTest extends TypeTestCase
      */
     public function testOptions()
     {
-        $form    = $this->factory->create($this->getType(), null, array('autoresize' => false, 'path' => '/test'));
+        $form    = $this->factory->create($this->getType(), null, array('autoresize' => false, 'paths' => array('/test')));
         $options = json_decode($form->createView()->vars['options'], true);
-        $this->assertEquals('/test', $options['path']);
-        $this->assertEquals('/redactor/list-files/test', $options['imageGetJson']);
+        $this->assertEquals('/redactor/list-files?paths[0]=/test', $options['imageGetJson']);
         $this->assertEquals(false, $options['autoresize']);
     }
 
@@ -58,12 +57,10 @@ class RedactorTypeTest extends TypeTestCase
         $router = $this->getMockBuilder('\Symfony\Component\Routing\Router')
                        ->disableOriginalConstructor()->getMock();
         $router->expects($this->any())
-               ->method('generate')
-               ->will($this->returnCallback(function () {
-                    $args = func_get_arg(1);
-
-                    return '/redactor/list-files'.$args['path'];
-                }));
+            ->method('generate')
+            ->will($this->returnCallback(function () {
+                return '/redactor/list-files';
+            }));
         $type = new RedactorType();
         $type->setUploadDirName('/path/to/web', '/path/to/web/uploads');
         $type->setRouter($router);

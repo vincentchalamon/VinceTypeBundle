@@ -72,7 +72,8 @@ class RedactorType extends AbstractType
         $view->vars['options'] = json_encode(array_merge(array(
                     'imageUpload' => $this->router->generate('redactor-upload'),
                     'fileUpload' => $this->router->generate('redactor-upload'),
-                    'imageGetJson' => $this->router->generate('redactor-list-files', array('paths' => $paths)),
+                    'imageGetJson' => urldecode($this->router->generate('redactor-list-files').
+                        '?'.http_build_query(array('paths' => $paths))),
                 ), array_intersect_key($options, $this->getConfiguration())), JSON_UNESCAPED_SLASHES);
     }
 

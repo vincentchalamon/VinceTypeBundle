@@ -15,6 +15,7 @@ use Vince\Bundle\TypeBundle\Form\Extension\HelpTypeExtension;
 use Vince\Bundle\TypeBundle\Form\Extension\LocaleTypeExtension;
 use Vince\Bundle\TypeBundle\Form\Type\DatepickerType;
 use Vince\Bundle\TypeBundle\Form\Type\DocumentType;
+use Vince\Bundle\TypeBundle\Form\Type\GeolocationType;
 use Vince\Bundle\TypeBundle\Form\Type\ListType;
 use Vince\Bundle\TypeBundle\Form\Type\MaskedType;
 use Vince\Bundle\TypeBundle\Form\Type\RedactorType;
@@ -44,11 +45,12 @@ abstract class TypeTestCase extends BaseTypeTestCase
     protected function getExtensions()
     {
         $types = array(
-            'document'   => new DocumentType(),
-            'datepicker' => new DatepickerType(),
-            'list'       => new ListType(),
-            'masked'     => new MaskedType(),
-            'redactor'   => new RedactorType(),
+            'datepicker'    => new DatepickerType(),
+            'document'      => new DocumentType(),
+            'geolocation'   => new GeolocationType(),
+            'list'          => new ListType(),
+            'masked'        => new MaskedType(),
+            'redactor'      => new RedactorType(),
         );
 
         return array(new PreloadedExtension($types, array()));

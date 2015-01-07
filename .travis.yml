@@ -20,4 +20,3 @@ after_script:
 notifications:
     email:
         - vincentchalamon@gmail.com
-

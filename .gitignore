@@ -1,9 +1,8 @@
 build
-coverage
 composer.lock
 composer.phar
-Tests/Controller/App/cache
-Tests/Controller/App/logs
-Tests/Controller/App/web
 vendor
-
+Tests/App/cache/*
+!Tests/App/cache/.gitkeep
+Tests/App/web/*
+!Tests/App/web/uploads/.gitkeep

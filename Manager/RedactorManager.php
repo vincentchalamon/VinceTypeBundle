@@ -9,8 +9,8 @@
 namespace Vince\Bundle\TypeBundle\Manager;
 
 use Symfony\Component\Finder\Finder;
-use Sonata\CoreBundle\Exception\InvalidParameterException;
 use Symfony\Component\HttpFoundation\Request;
+use Vince\Bundle\TypeBundle\Exception\InvalidParameterException;
 
 /**
  * Manager for RedactorController
@@ -89,6 +89,12 @@ class RedactorManager
         return $this;
     }
 
+    /**
+     * Upload file from request
+     *
+     * @author Vincent Chalamon <vincent@ylly.fr>
+     * @return bool|string
+     */
     public function uploadFile()
     {
         if (!$this->request->files->has('file')) {
@@ -102,7 +108,7 @@ class RedactorManager
         $file->move(realpath($upload), $file->getClientOriginalName());
 
         return sprintf('/%s/%s', pathinfo($upload, PATHINFO_BASENAME),
-            pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+            pathinfo($file->getClientOriginalName(), PATHINFO_BASENAME));
     }
 
     /**
