@@ -9,3 +9,30 @@ VinceTypeBundle
 
 Form types for Symfony 2.5
 
+## TODO
+
+- [ ] Switch (http://www.inserthtml.com/demos/css/radio-buttons/)
+- [ ] Autocomplete (https://github.com/bassjobsen/Bootstrap-3-Typeahead)
+- [ ] FileUpload (http://blueimp.github.io/jQuery-File-Upload/basic.html)
+- [ ] Dropzone (http://www.dropzonejs.com/):
+    * Hérite du champ text
+    * Au chargement : taille standard si vide, sinon taille agrandie
+    * Animation d'agrandissement au drag'n'drop (si taille standard)
+    * Animation de réduction à la suppression si vide
+- [ ] jQuery image cropper (http://tympanus.net/codrops/2009/11/04/jquery-image-cropper-with-uploader-v1-1/)
+- [ ] ColorPicker
+- [ ] Documentation (README + PHPdoc + GitHub pages)
+
+Documentation
+=============
+
+### Installation
+
+- [ ] Install bundle with composer
+- [ ] Update AppKernel
+
+### Configuration
+
+- [ ] Load configuration files
+
+### How to use
