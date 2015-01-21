@@ -29,13 +29,15 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('twig.form.resources', array_merge(
-                $container->getParameter('twig.form.resources'),
-                array('VinceTypeBundle:Form:form_div_layout.html.twig')
-            )
-        );
+        if ($config['autoload']) {
+            $container->setParameter('twig.form.resources', array_merge(
+                    $container->getParameter('twig.form.resources'),
+                    array('VinceTypeBundle:Form:form_div_layout.html.twig')
+                )
+            );
+        }
         $container->setParameter('kernel.web_dir', $container->getParameter('kernel.root_dir').'/../web');
         $container->setParameter('kernel.upload_dir', $container->getParameter('kernel.web_dir').'/uploads');
 

@@ -26,7 +26,13 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('vince_type');
+        $treeBuilder->root('vince_type')
+            ->children()
+                ->booleanNode('autoload')
+                    ->defaultTrue()
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }
