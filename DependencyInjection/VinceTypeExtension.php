@@ -61,7 +61,7 @@ class VinceTypeExtension extends Extension implements PrependExtensionInterface
                             'inputs' => array(
                                 'bundles/vincetype/autosize/jquery.autosize.min.js',
                                 'bundles/vincetype/datepicker/bootstrap-datepicker.js',
-                                'bundles/vincetype/datepicker/langs/*',
+                                'bundles/vincetype/datepicker/locales/*',
                                 'bundles/vincetype/geolocation/jquery.geocomplete.min.js',
                                 'bundles/vincetype/geolocation/markerclusterer.min.js',
                                 'bundles/vincetype/list/listInput.js',
