@@ -99,6 +99,9 @@ class DatepickerType extends AbstractType
             'keyboardNavigation' => true,
             'forceParse' => true,
             'orientation' => 'auto',
+            'endDate' => '',
+            'startDate' => '',
+            'datesDisabled' => array()
         );
     }
 }
