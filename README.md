@@ -1,3 +1,5 @@
+**THIS PLUGIN IS NOT MAINTAINED ANYMORE !**
+
 VinceTypeBundle
 ==============
 
