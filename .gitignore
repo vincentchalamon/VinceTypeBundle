@@ -6,3 +6,6 @@ Tests/App/cache/*
 !Tests/App/cache/.gitkeep
 Tests/App/web/*
 !Tests/App/web/uploads/.gitkeep
+
+.DS_Store
+.idea

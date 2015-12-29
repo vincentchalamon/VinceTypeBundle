@@ -1726,7 +1726,7 @@
 						fonts.replaceWith(function()
 						{
 							var $el = $(this);
-							var span = $('<span>').attr('style', $el.attr('style'));
+							var $span = $('<span>').attr('style', $el.attr('style'));
 							return $span.append($el.contents());
 						});
 
