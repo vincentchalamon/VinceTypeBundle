@@ -15,7 +15,7 @@
         "php": ">=5.4.0",
         "sensio/framework-extra-bundle": "3.0.*",
         "symfony/symfony": ">=2.3,<3.0",
-        "gregwar/form-bundle": "dev-master"
+        "gregwar/form-bundle": "~2.7"
     },
     "authors": [
         {
