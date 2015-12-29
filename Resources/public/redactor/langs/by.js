@@ -66,11 +66,11 @@ $.Redactor.opts.langs['by'] = {
     fullscreen: 'Ва ўвесь экран',
     deleted: 'Закрэслены',
     anchor: 'Anchor',
-	link_new_tab: 'Open link in new tab',
-	underline: 'Underline',
-	alignment: 'Alignment',
-	filename: 'Name (optional)',
-	edit: 'Edit',
-	center: 'Center'
+    link_new_tab: 'Open link in new tab',
+    underline: 'Underline',
+    alignment: 'Alignment',
+    filename: 'Name (optional)',
+    edit: 'Edit',
+    center: 'Center'
 };
 })( jQuery );
